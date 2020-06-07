@@ -2,11 +2,11 @@ package main
 
 import (
 	"encoding/csv"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"text/template"
 
 	"github.com/gorilla/mux"
 )
@@ -16,6 +16,8 @@ type Visa struct {
 	Destination string `json:"Destination"`
 	Code        string `json:"Code"`
 }
+
+var visaResult Visa
 
 func readVisa(name string) [][]string {
 	f, err := os.Open(name)
@@ -48,10 +50,10 @@ func getVisa(rows [][]string, passport, destination string) string {
 
 func checkVisa(w http.ResponseWriter, r *http.Request) {
 
-	t, err := template.ParseFiles("api.html")
-	if err != nil {
-		fmt.Println(err)
-	}
+	// t, err := template.ParseFiles("api.html")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
 
 	params := mux.Vars(r)
 	passport := params["p"]
@@ -59,9 +61,12 @@ func checkVisa(w http.ResponseWriter, r *http.Request) {
 
 	result := getVisa(readVisa("clients.csv"), passport, destination)
 
-	p := Visa{Passport: passport, Destination: destination, Code: result}
+	visaResult = Visa{Passport: passport, Destination: destination, Code: result}
 
-	fmt.Print(t.Execute(w, p))
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(visaResult)
+
+	// fmt.Print(t.Execute(w, p))
 
 }
 
@@ -71,5 +76,5 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/api/{p}/{d}", checkVisa)
 	http.Handle("/", r)
-	log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
+	log.Println(http.ListenAndServe(":8080", nil))
 }
