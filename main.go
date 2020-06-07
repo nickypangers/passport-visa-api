@@ -76,5 +76,5 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/api/{p}/{d}", checkVisa)
 	http.Handle("/", r)
-	log.Println(http.ListenAndServe(":8080", nil))
+	log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
 }
