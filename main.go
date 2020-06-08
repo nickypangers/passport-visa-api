@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -56,7 +57,9 @@ func getVisa(rows [][]string, passport, destination string) string {
 
 func getCountry(rows [][]string, passport string) Country {
 	var country Country
-	var vf, voa, vr int
+	vf := 0
+	voa := 0
+	vr := 0
 	for i := range rows {
 		p := rows[i][0]
 
@@ -70,7 +73,7 @@ func getCountry(rows [][]string, passport string) Country {
 			}
 		}
 	}
-	country = Country{VF: string(vf), VOA: string(voa), VR: string(vr)}
+	country = Country{VF: strconv.Itoa(vf), VOA: strconv.Itoa(voa), VR: strconv.Itoa(vr)}
 
 	return country
 }
@@ -107,6 +110,7 @@ func main() {
 	r.HandleFunc("/api/{p}/{d}", checkVisa)
 	r.HandleFunc("/api/{p}", checkCountry)
 	http.Handle("/", r)
-	log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
+	// log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
+	log.Println(http.ListenAndServe(":8080", nil))
 
 }
