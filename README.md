@@ -16,7 +16,7 @@ https://github.com/ilyankou/passport-index-dataset (see Dataset Values section)
 
 Scenario: I want to get the visa requirement of a Hong Kong passport to United Kingdom. The correct API call will be:
 
-<pre>https<nolink>://passportvisa-app.herokuapp.com/api/HK/GB</pre>
+<pre>https<nolink>://passportvisa-api.herokuapp.com/api/HK/GB</pre>
 
 The return will be something like this:
 
