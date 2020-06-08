@@ -68,4 +68,5 @@ func main() {
 	r.HandleFunc("/api/{p}/{d}", checkVisa)
 	http.Handle("/", r)
 	log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
+
 }
