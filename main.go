@@ -18,9 +18,10 @@ type Visa struct {
 }
 
 type Country struct {
-	VF  string `json:"VF"`
-	VOA string `json:"VOA"`
-	VR  string `json:"VR"`
+	Passport string `json:"Passport"`
+	VF       string `json:"VF"`
+	VOA      string `json:"VOA"`
+	VR       string `json:"VR"`
 }
 
 var visaResult Visa
@@ -56,14 +57,15 @@ func getVisa(rows [][]string, passport, destination string) string {
 }
 
 func getCountry(rows [][]string, passport string) Country {
-	var country Country
+
 	vf := 0
 	voa := 0
 	vr := 0
+
 	for i := range rows {
 		p := rows[i][0]
 
-		for p == passport {
+		if p == passport {
 			if rows[i][2] == "VR" {
 				vr = vr + 1
 			} else if rows[i][2] == "VOA" || rows[i][2] == "ETA" {
@@ -73,9 +75,9 @@ func getCountry(rows [][]string, passport string) Country {
 			}
 		}
 	}
-	country = Country{VF: strconv.Itoa(vf), VOA: strconv.Itoa(voa), VR: strconv.Itoa(vr)}
 
-	return country
+	return Country{Passport: passport, VF: strconv.Itoa(vf), VOA: strconv.Itoa(voa), VR: strconv.Itoa(vr)}
+
 }
 
 func checkVisa(w http.ResponseWriter, r *http.Request) {
