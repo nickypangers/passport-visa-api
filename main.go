@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/csv"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -50,11 +49,6 @@ func getVisa(rows [][]string, passport, destination string) string {
 
 func checkVisa(w http.ResponseWriter, r *http.Request) {
 
-	// t, err := template.ParseFiles("api.html")
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-
 	params := mux.Vars(r)
 	passport := params["p"]
 	destination := params["d"]
@@ -66,12 +60,9 @@ func checkVisa(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(visaResult)
 
-	// fmt.Print(t.Execute(w, p))
-
 }
 
 func main() {
-	fmt.Println(getVisa(readVisa("clients.csv"), "HK", "GB"))
 
 	r := mux.NewRouter()
 	r.HandleFunc("/api/{p}/{d}", checkVisa)
