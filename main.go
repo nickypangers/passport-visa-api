@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -16,7 +17,15 @@ type Visa struct {
 	Code        string `json:"Code"`
 }
 
+type Country struct {
+	Passport string `json:"Passport"`
+	VF       string `json:"VF"`
+	VOA      string `json:"VOA"`
+	VR       string `json:"VR"`
+}
+
 var visaResult Visa
+var countryResult Country
 
 func readVisa(name string) [][]string {
 	f, err := os.Open(name)
@@ -34,7 +43,7 @@ func readVisa(name string) [][]string {
 }
 
 func getVisa(rows [][]string, passport, destination string) string {
-	visa := ""
+	var visa string
 	for i := range rows {
 		p := rows[i][0]
 		d := rows[i][1]
@@ -45,6 +54,30 @@ func getVisa(rows [][]string, passport, destination string) string {
 		}
 	}
 	return visa
+}
+
+func getCountry(rows [][]string, passport string) Country {
+
+	vf := 0
+	voa := 0
+	vr := 0
+
+	for i := range rows {
+		p := rows[i][0]
+
+		if p == passport {
+			if rows[i][2] == "VR" {
+				vr = vr + 1
+			} else if rows[i][2] == "VOA" || rows[i][2] == "ETA" {
+				voa = voa + 1
+			} else {
+				vf = vf + 1
+			}
+		}
+	}
+
+	return Country{Passport: passport, VF: strconv.Itoa(vf), VOA: strconv.Itoa(voa), VR: strconv.Itoa(vr)}
+
 }
 
 func checkVisa(w http.ResponseWriter, r *http.Request) {
@@ -62,10 +95,22 @@ func checkVisa(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func checkCountry(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	passport := params["p"]
+
+	result := getCountry(readVisa("clients.csv"), passport)
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(result)
+
+}
+
 func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/api/{p}/{d}", checkVisa)
+	r.HandleFunc("/api/{p}", checkCountry)
 	http.Handle("/", r)
 	log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
 
