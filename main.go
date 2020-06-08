@@ -60,7 +60,7 @@ func getCountry(rows [][]string, passport string) Country {
 	for i := range rows {
 		p := rows[i][0]
 
-		if p == passport {
+		for p == passport {
 			if rows[i][2] == "VR" {
 				vr = vr + 1
 			} else if rows[i][2] == "VOA" || rows[i][2] == "ETA" {
