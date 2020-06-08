@@ -112,7 +112,6 @@ func main() {
 	r.HandleFunc("/api/{p}/{d}", checkVisa)
 	r.HandleFunc("/api/{p}", checkCountry)
 	http.Handle("/", r)
-	// log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
-	log.Println(http.ListenAndServe(":8080", nil))
+	log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
 
 }
