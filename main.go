@@ -27,13 +27,21 @@ type Country struct {
 var visaResult Visa
 var countryResult Country
 
-func readVisa(name string) [][]string {
-	f, err := os.Open(name)
+func readVisa() [][]string {
+
+	resp, err := http.Get("https://raw.githubusercontent.com/ilyankou/passport-index-dataset/master/passport-index-tidy-iso2.csv")
+
 	if err != nil {
-		log.Fatalf("Cannot open '%s;: %s\n", name, err.Error())
+		panic(err)
 	}
-	defer f.Close()
-	r := csv.NewReader(f)
+
+	defer resp.Body.Close()
+
+	if err != nil {
+		panic(err)
+	}
+
+	r := csv.NewReader(resp.Body)
 
 	rows, err := r.ReadAll()
 	if err != nil {
@@ -86,7 +94,7 @@ func checkVisa(w http.ResponseWriter, r *http.Request) {
 	passport := params["p"]
 	destination := params["d"]
 
-	result := getVisa(readVisa("clients.csv"), passport, destination)
+	result := getVisa(readVisa(), passport, destination)
 
 	visaResult = Visa{Passport: passport, Destination: destination, Code: result}
 
@@ -99,7 +107,7 @@ func checkCountry(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	passport := params["p"]
 
-	result := getCountry(readVisa("clients.csv"), passport)
+	result := getCountry(readVisa(), passport)
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)

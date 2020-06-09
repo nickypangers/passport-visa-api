@@ -44,6 +44,4 @@ The return will be something like this:
 
 ## Future Work
 
-Features to be added:
-
-- Read csv directly online.
+This project will be maintained and improve over time.
