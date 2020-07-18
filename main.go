@@ -3,10 +3,12 @@ package main
 import (
 	"encoding/csv"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
@@ -22,6 +24,12 @@ type Country struct {
 	VF       string `json:"VF"`
 	VOA      string `json:"VOA"`
 	VR       string `json:"VR"`
+}
+
+type List struct {
+	VF  string `json:"VF"`
+	VOA string `json:"VOA"`
+	VR  string `json:"VR"`
 }
 
 var visaResult Visa
@@ -78,13 +86,43 @@ func getCountry(rows [][]string, passport string) Country {
 				vr = vr + 1
 			} else if rows[i][2] == "VOA" || rows[i][2] == "ETA" {
 				voa = voa + 1
-			} else {
+			} else if rows[i][2] != "-1" {
 				vf = vf + 1
 			}
 		}
 	}
 
 	return Country{Passport: passport, VF: strconv.Itoa(vf), VOA: strconv.Itoa(voa), VR: strconv.Itoa(vr)}
+
+}
+
+func getList(rows [][]string, passport string) List {
+
+	var vf, voa, vr []string
+
+	for i := range rows {
+		p := rows[i][0]
+
+		if p == passport {
+			if rows[i][2] == "VR" {
+				vr = append(vr, rows[i][1])
+			} else if rows[i][2] == "VOA" || rows[i][2] == "ETA" {
+				voa = append(voa, rows[i][1])
+			} else if rows[i][2] != "-1" {
+				vf = append(vf, rows[i][1])
+			}
+		}
+	}
+
+	fmt.Println("VR: ", len(vr))
+	fmt.Println("VOA: ", len(voa))
+	fmt.Println("VF: ", len(vf))
+
+	vfstring := "[" + strings.Join(vf, ",") + "]"
+	voastring := "[" + strings.Join(voa, ",") + "]"
+	vrstring := "[" + strings.Join(vr, ",") + "]"
+
+	return List{VF: vfstring, VOA: voastring, VR: vrstring}
 
 }
 
@@ -114,11 +152,22 @@ func checkCountry(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func checkList(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	passport := params["p"]
+
+	result := getList(readVisa(), passport)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(result)
+
+}
+
 func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/api/{p}/{d}", checkVisa)
 	r.HandleFunc("/api/{p}", checkCountry)
+	r.HandleFunc("/list/api/{p}", checkList)
 	http.Handle("/", r)
 	log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
 
