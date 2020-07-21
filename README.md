@@ -42,13 +42,13 @@ The return will be something like this:
 
 ### Get list of countries sorted by visa requirements of a passport
 
-Scenario: I want to see a list of countries sorted by visa requirements of Hong Kong passport. The correct API call will be:
+Scenario: I want to see a list of countries sorted by visa requirements of United Arab Emirates passport. The correct API call will be:
 
-<pre>https<nolink>://passportvisa-api.herokuapp.com/list/api/HK</pre>
+<pre>https<nolink>://passportvisa-api.herokuapp.com/list/api/AE</pre>
 
 The return will be something like this:
 
-<pre>{"VF":"[AL,AD,AG,AR,AM,AT,BS,BB,BY,BE,BZ,BJ,BA,BW,BR,BN,BG,CV,CL,CO,HR,CY,CZ,DK,DM,DO,EC,EG,EE,FJ,FI,FR,DE,GR,GD,GY,HT,HU,IS,ID,IR,IE,IL,IT,JM,JP,KZ,KI,XK,LV,LS,LI,LT,LU,MO,MW,MY,MT,MU,MX,FM,MD,MC,MN,ME,MA,MM,NA,NL,NI,NE,MK,NO,PS,PA,PE,PH,PL,PT,QA,RO,RU,KN,LC,SM,RS,SG,SK,SI,KR,ES,VC,SR,SE,CH,TZ,TH,TT,TN,TR,UG,UA,AE,GB,UY,UZ,VU,VA,VE,YE,ZM,ZW]","VOA":"[AU,AZ,BH,BO,BF,KH,CA,KM,CI,CU,DJ,ET,GA,GN,GW,IN,JO,KE,KW,LA,LB,MG,MV,MR,MZ,NP,NZ,NG,OM,PW,PG,RW,WS,SA,SC,SO,LK,TW,TL,TG,TO,TV,VN]","VR":"[AF,DZ,AO,BD,BT,BI,CM,CF,TD,CN,CG,CD,CR,SV,GQ,ER,SZ,GM,GE,GH,GT,HN,IQ,KG,LR,LY,ML,MH,NR,KP,PK,PY,ST,SN,SL,SB,ZA,SS,SD,SY,TJ,TM,US]"}</pre>
+<pre>{"VF":["AL","AD","AG","AR","AM","AT","BS","BH","BB","BY","BE","BA","BW","BR","BN","BG","BF","TD","CL","CN","CO","CR","HR","CU","CY","CZ","DK","DM","DO","EC","EG","SV","EE","SZ","FJ","FI","FR","GM","GE","DE","GR","GD","GT","HT","HN","HK","HU","IS","ID","IE","IT","JP","JO","KZ","XK","KW","KG","LV","LB","LI","LT","LU","MY","ML","MT","MU","MX","FM","MD","MC","ME","MA","NR","NL","NI","MK","NO","OM","PS","PA","PY","PH","PL","PT","QA","RO","RU","KN","LC","SM","ST","SA","RS","SG","SK","SI","SB","ZA","KR","SS","ES","VC","SD","SE","CH","SY","TH","TO","TN","UA","UY","UZ","VU","VA"],"VOA":["AO","AU","AZ","BD","BJ","BO","BI","KH","CA","CV","CF","KM","CG","CD","CI","DJ","GQ","ET","GA","GN","GW","GY","IN","IR","KE","LA","LS","LR","MO","MG","MW","MV","MH","MR","MN","MZ","NA","NP","NZ","NE","NG","PK","PW","RW","WS","SN","SC","SL","SO","LK","SR","TW","TJ","TZ","TL","TG","TR","TV","UG","GB","VN","YE","ZM","ZW"],"VR":["AF","DZ","BZ","BT","CM","ER","GH","IQ","IL","JM","KI","LY","MM","KP","PG","PE","TT","TM","US","VE"]}</pre>
 
 | Code| Meaning                         |
 |-----|---------------------------------|
