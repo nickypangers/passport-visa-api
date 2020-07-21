@@ -1,4 +1,4 @@
-module github.com/nickypangers/passport=visa-api
+module github.com/nickypangers/passport-visa-api
 
 go 1.12
 

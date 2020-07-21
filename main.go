@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"strings"
 
 	"github.com/gorilla/mux"
 )
@@ -27,9 +26,9 @@ type Country struct {
 }
 
 type List struct {
-	VF  string `json:"VF"`
-	VOA string `json:"VOA"`
-	VR  string `json:"VR"`
+	VF  []string `json:"VF"`
+	VOA []string `json:"VOA"`
+	VR  []string `json:"VR"`
 }
 
 var visaResult Visa
@@ -118,11 +117,7 @@ func getList(rows [][]string, passport string) List {
 	fmt.Println("VOA: ", len(voa))
 	fmt.Println("VF: ", len(vf))
 
-	vfstring := "[" + strings.Join(vf, ",") + "]"
-	voastring := "[" + strings.Join(voa, ",") + "]"
-	vrstring := "[" + strings.Join(vr, ",") + "]"
-
-	return List{VF: vfstring, VOA: voastring, VR: vrstring}
+	return List{VF: vf, VOA: voa, VR: vr}
 
 }
 
