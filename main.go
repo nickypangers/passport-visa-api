@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
@@ -23,12 +24,16 @@ type Country struct {
 	VF       string `json:"VF"`
 	VOA      string `json:"VOA"`
 	VR       string `json:"VR"`
+	CB       string `json:"CB"`
+	NA       string `json:"NA"`
 }
 
 type List struct {
 	VF  []string `json:"VF"`
 	VOA []string `json:"VOA"`
 	VR  []string `json:"VR"`
+	CB  []string `json:"CB"`
+	NA  []string `json:"NA"`
 }
 
 var visaResult Visa
@@ -76,37 +81,53 @@ func getCountry(rows [][]string, passport string) Country {
 	vf := 0
 	voa := 0
 	vr := 0
+	cb := 0
+	na := 0
 
 	for i := range rows {
 		p := rows[i][0]
 
 		if p == passport {
-			if rows[i][2] == "VR" {
+			if rows[i][2] == "visa required" {
 				vr = vr + 1
-			} else if rows[i][2] == "VOA" || rows[i][2] == "ETA" {
+			} else if rows[i][2] == "visa on arrival" || rows[i][2] == "e-visa" {
 				voa = voa + 1
+			} else if rows[i][2] == "covid ban" {
+				cb = cb + 1
+			} else if rows[i][2] == "no admission" {
+				na = na + 1
 			} else if rows[i][2] != "-1" {
 				vf = vf + 1
 			}
 		}
 	}
 
-	return Country{Passport: passport, VF: strconv.Itoa(vf), VOA: strconv.Itoa(voa), VR: strconv.Itoa(vr)}
+	return Country{Passport: passport, VF: strconv.Itoa(vf), VOA: strconv.Itoa(voa), VR: strconv.Itoa(vr), CB: strconv.Itoa(cb), NA: strconv.Itoa(na)}
 
 }
 
 func getList(rows [][]string, passport string) List {
 
-	var vf, voa, vr []string
+	var vf, voa, vr, cb, na []string
+
+	vf = make([]string, 0)
+	voa = make([]string, 0)
+	vr = make([]string, 0)
+	cb = make([]string, 0)
+	na = make([]string, 0)
 
 	for i := range rows {
 		p := rows[i][0]
 
 		if p == passport {
-			if rows[i][2] == "VR" {
+			if rows[i][2] == "visa required" {
 				vr = append(vr, rows[i][1])
-			} else if rows[i][2] == "VOA" || rows[i][2] == "ETA" {
+			} else if rows[i][2] == "visa on arrival" || rows[i][2] == "e-visa" {
 				voa = append(voa, rows[i][1])
+			} else if rows[i][2] == "covid ban" {
+				cb = append(cb, rows[i][1])
+			} else if rows[i][2] == "no admission" {
+				na = append(na, rows[i][1])
 			} else if rows[i][2] != "-1" {
 				vf = append(vf, rows[i][1])
 			}
@@ -116,16 +137,18 @@ func getList(rows [][]string, passport string) List {
 	fmt.Println("VR: ", len(vr))
 	fmt.Println("VOA: ", len(voa))
 	fmt.Println("VF: ", len(vf))
+	fmt.Println("CB: ", len(cb))
+	fmt.Println("NA: ", len(na))
 
-	return List{VF: vf, VOA: voa, VR: vr}
+	return List{VF: vf, VOA: voa, VR: vr, CB: cb, NA: na}
 
 }
 
 func checkVisa(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
-	passport := params["p"]
-	destination := params["d"]
+	passport := strings.ToUpper(params["p"])
+	destination := strings.ToUpper(params["d"])
 
 	result := getVisa(readVisa(), passport, destination)
 
@@ -138,7 +161,7 @@ func checkVisa(w http.ResponseWriter, r *http.Request) {
 
 func checkCountry(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	passport := params["p"]
+	passport := strings.ToUpper(params["p"])
 
 	result := getCountry(readVisa(), passport)
 
@@ -149,7 +172,7 @@ func checkCountry(w http.ResponseWriter, r *http.Request) {
 
 func checkList(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	passport := params["p"]
+	passport := strings.ToUpper(params["p"])
 
 	result := getList(readVisa(), passport)
 	w.Header().Set("Content-Type", "application/json")
