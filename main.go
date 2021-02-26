@@ -36,6 +36,10 @@ type List struct {
 	NA  []string `json:"NA"`
 }
 
+type CountryList struct {
+	Countries []string `json:"countries"`
+}
+
 var visaResult Visa
 var countryResult Country
 
@@ -144,6 +148,30 @@ func getList(rows [][]string, passport string) List {
 
 }
 
+func getListOfCountries(rows [][]string) CountryList {
+	countryList := make([]string, 0)
+	
+	for i := range rows {
+		p := rows[i][0]
+
+		if p == "AF" {
+			countryList = append(countryList, rows[i][1])
+		}
+	}
+
+	return CountryList{Countries: countryList}
+	
+}
+
+func showAllCountry(w http.ResponseWriter, r *http.Request) {
+	// params := mux.Vars(r)
+
+	result := getListOfCountries(readVisa())
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(result)
+}
+
 func checkVisa(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
@@ -182,11 +210,16 @@ func checkList(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
+	fmt.Println(getListOfCountries(readVisa()))
+
 	r := mux.NewRouter()
 	r.HandleFunc("/api/{p}/{d}", checkVisa)
 	r.HandleFunc("/api/{p}", checkCountry)
 	r.HandleFunc("/list/api/{p}", checkList)
+	r.HandleFunc("/list/countries", showAllCountry)
+	// showAllCountry
 	http.Handle("/", r)
 	log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
+	// log.Println(http.ListenAndServe(":8080", nil))
 
 }
