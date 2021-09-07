@@ -1,5 +1,5 @@
 module github.com/nickypangers/passport-visa-api
 
-go 1.12
+go 1.16
 
-require github.com/gorilla/mux v1.7.4
+require github.com/gorilla/mux v1.8.0
