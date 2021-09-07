@@ -3,19 +3,28 @@ package main
 import (
 	"fmt"
 
-	"github.com/nickypangers/passport-visa-api/pkg/rawdata"
 	"github.com/nickypangers/passport-visa-api/pkg/storage/memory"
 )
 
 func main() {
 
-	countryList := memory.CountryList{}
-
-	err := countryList.InitData()
+	err := memory.InitCountryData()
 	if err != nil {
-		fmt.Println(countryList)
+		fmt.Println(err)
 	}
 
-	rawdata.Update()
+	// fmt.Println(memory.ReadData())
+
+	memory.InitVisaData()
+
+	visaData := memory.ReadVisaData()
+
+	hkData := visaData["HK"].Destinations
+
+	for _, v := range hkData {
+		if v.Code == "VN" {
+			fmt.Println(v)
+		}
+	}
 
 }
