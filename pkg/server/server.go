@@ -12,6 +12,9 @@ func NewAPIServer() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/api/{p}/{d}", getVisaBetweenCountryHandler)
+	r.HandleFunc("/api/{p}", getCountryVisaListHandler)
+
+	r.HandleFunc("/updateVisaData", updateVisaDataHandler)
 
 	http.Handle("/", r)
 	// log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))

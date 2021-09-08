@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/nickypangers/passport-visa-api/pkg/server"
 	"github.com/nickypangers/passport-visa-api/pkg/storage/memory"
@@ -19,15 +20,12 @@ func main() {
 
 	memory.InitVisaData()
 
+	go func() {
+		for {
+			time.Sleep(24 * time.Hour)
+			memory.UpdateVisaData()
+		}
+	}()
+
 	server.NewAPIServer()
-
-	// result, err := visa.GetVisaBetweenCountry("HK", "HK")
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-
-	// jsonData, _ := json.Marshal(result)
-
-	// fmt.Println(string(jsonData))
-
 }

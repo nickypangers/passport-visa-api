@@ -13,6 +13,7 @@ import (
 
 type Destination struct {
 	Code     string `json:"code"`
+	Category string `json:"category"`
 	Duration string `json:"dur"`
 	Status   string `json:"text"`
 }
@@ -38,7 +39,7 @@ func InitVisaData() error {
 		return errors.New("visa data already initialized")
 	}
 
-	err := updateVisaData()
+	err := UpdateVisaData()
 	if err != nil {
 		return err
 	}
@@ -48,11 +49,7 @@ func InitVisaData() error {
 	return nil
 }
 
-func UpdateDataset() {
-
-}
-
-func updateVisaData() error {
+func UpdateVisaData() error {
 
 	log.Println("updating visa data")
 
@@ -89,6 +86,11 @@ func updateVisaData() error {
 		return err
 	}
 
+	err = addVisaCategory(&tempVisaData)
+	if err != nil {
+		return err
+	}
+
 	visaData = tempVisaData
 
 	timeVisaDataUpdated = time.Now().UTC()
@@ -96,6 +98,64 @@ func updateVisaData() error {
 	log.Println("updating visa data done")
 
 	return nil
+}
+
+func addVisaCategory(vd *VisaData) error {
+
+	if len(*vd) == 0 {
+		return errors.New("visa data is empty")
+	}
+
+	for _, v := range countryList {
+		for j, d := range (*vd)[v].Destinations {
+			(*vd)[v].Destinations[j].Category = sortVisaCategory(d)
+		}
+	}
+
+	return nil
+}
+
+func sortVisaCategory(d Destination) string {
+
+	if d.Status == "visa required" {
+		return "VR"
+	}
+	// if d.Status == "pre-visa on arrival" {
+	// 	return "VR"
+	// }
+	if strings.Contains(d.Status, "eVisa") {
+		if d.Duration == "" {
+			return "VR"
+		} else {
+			return "VOA"
+		}
+	}
+
+	if d.Status == "pre-enrollment" {
+		return "VOA"
+	}
+	if d.Status == "eTA" {
+		return "VOA"
+	}
+	if d.Status == "pre-visa on arrival" {
+		return "VOA"
+	}
+	if strings.Contains(d.Status, "visa on arrival") {
+		return "VOA"
+	}
+	if d.Status == "eTourist card" {
+		return "VOA"
+	}
+	if d.Status == "tourist registration" {
+		return "VOA"
+	}
+
+	if d.Status == "COVID-19 ban" {
+		return "CB"
+	}
+
+	return "VF"
+
 }
 
 func GetVisaData() VisaData {

@@ -18,9 +18,9 @@ func TestInitVisaData(t *testing.T) {
 }
 
 func TestUpdateVisaData(t *testing.T) {
-	err := updateVisaData()
+	err := UpdateVisaData()
 	length := len(visaData)
 	if length != 199 || err != nil {
-		t.Fatalf("updateVisaData() = %q, %v, want match for 199, nil", length, err)
+		t.Fatalf("UpdateVisaData() = %q, %v, want match for 199, nil", length, err)
 	}
 }

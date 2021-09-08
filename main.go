@@ -150,7 +150,7 @@ func getList(rows [][]string, passport string) List {
 
 func getListOfCountries(rows [][]string) CountryList {
 	countryList := make([]string, 0)
-	
+
 	for i := range rows {
 		p := rows[i][0]
 
@@ -160,7 +160,7 @@ func getListOfCountries(rows [][]string) CountryList {
 	}
 
 	return CountryList{Countries: countryList}
-	
+
 }
 
 func showAllCountry(w http.ResponseWriter, r *http.Request) {
