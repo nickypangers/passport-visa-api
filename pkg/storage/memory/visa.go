@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 type Destination struct {
@@ -24,7 +25,8 @@ type VisaData map[string]CountryInfo
 const apiUrl = "https://www.passportindex.org/incl/compare2.php"
 
 var (
-	visaData VisaData
+	visaData            VisaData
+	timeVisaDataUpdated time.Time
 )
 
 func InitVisaData() error {
@@ -72,9 +74,15 @@ func updateVisaData() error {
 		return err
 	}
 
+	timeVisaDataUpdated = time.Now().UTC()
+
 	return nil
 }
 
 func GetVisaData() VisaData {
 	return visaData
+}
+
+func GetTimeVisaDataUpdated() string {
+	return timeVisaDataUpdated.Format(http.TimeFormat)
 }

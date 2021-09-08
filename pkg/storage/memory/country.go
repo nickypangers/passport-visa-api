@@ -3,16 +3,20 @@ package memory
 import (
 	"encoding/csv"
 	"errors"
+	"log"
 	"os"
+	"strings"
 )
 
-const fileDir = "/Users/nixon.p/Documents/Personal/passport-visa-api/data/country-code.csv"
+const fileDir = "../../data/country-code.csv"
 
 var (
 	countryList []string
 )
 
 func InitCountryData() error {
+	log.Println("initializing country data")
+
 	if len(countryList) > 0 {
 		return errors.New("country list already initilized")
 	}
@@ -44,8 +48,10 @@ func loadCountryData(file string) error {
 	countryList = make([]string, 0)
 
 	for _, v := range lines {
-		countryList = append(countryList, v[1])
+		countryList = append(countryList, strings.ToUpper(v[1]))
 	}
+
+	log.Println("load country data success")
 
 	return nil
 }

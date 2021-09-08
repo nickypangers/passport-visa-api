@@ -25,5 +25,5 @@ func (v Version) String() string {
 		ver += "-" + v.Metadata
 	}
 
-	return fmt.Sprintf("%s\nBuild: %s", ver, v.Build)
+	return fmt.Sprint(ver)
 }

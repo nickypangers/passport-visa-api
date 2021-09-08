@@ -1,9 +1,17 @@
 package json
 
 type Visa struct {
-	Passport    string `json:"Passport"`
-	Destination string `json:"Destination"`
-	Code        string `json:"code"`
+	Passport    string `json:"passport"`
+	Destination string `json:"destination"`
+	Duration    string `json:"dur"`
+	Status      string `json:"text"`
+	LastUpdated string `json:"last_updated"`
+	Error       Error  `json:"error"`
+}
+
+type Error struct {
+	Status bool   `json:"status"`
+	Error  string `json:"error"`
 }
 
 type VisaCountryInfo struct {

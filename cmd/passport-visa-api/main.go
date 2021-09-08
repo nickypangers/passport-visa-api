@@ -3,29 +3,31 @@ package main
 import (
 	"fmt"
 
+	"github.com/nickypangers/passport-visa-api/pkg/server"
 	"github.com/nickypangers/passport-visa-api/pkg/storage/memory"
 )
 
 func main() {
+
+	// pwd, _ := os.Getwd()
+	// fmt.Println(pwd)
 
 	err := memory.InitCountryData()
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	// fmt.Println(memory.ReadData())
-
 	memory.InitVisaData()
 
-	visaData := memory.GetVisaData()
+	server.NewAPIServer()
 
-	hkData := visaData["HK"].Destinations
-
-	// for _, v := range hkData {
-	// 	if v.Code == "VN" {
-	// 		fmt.Println(v)
-	// 	}
+	// result, err := visa.GetVisaBetweenCountry("HK", "HK")
+	// if err != nil {
+	// 	fmt.Println(err)
 	// }
-	fmt.Println(hkData)
+
+	// jsonData, _ := json.Marshal(result)
+
+	// fmt.Println(string(jsonData))
 
 }
