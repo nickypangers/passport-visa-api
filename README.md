@@ -32,15 +32,15 @@ The return will be something like this:
 
 <pre>{"passport":"HK","destination":"GB","dur":"180","status":"visa-free","category":"VF","last_updated":"Wed, 08 Sep 2021 17:37:25 GMT","error":{"status":false,"error":""}}</pre>
 
-### ~~Get overall visa stats of a passport~~
+<!-- ### Get overall visa stats of a passport
 
-~~Scenario: I want to see how many visa free countries Hong Kong passport has. The correct API call will be:~~
+Scenario: I want to see how many visa free countries Hong Kong passport has. The correct API call will be:
 
-~~<pre>https<nolink>://passportvisa-api.herokuapp.com/api/HK</pre>~~
+<pre>https<nolink>://passportvisa-api.herokuapp.com/api/HK</pre>
 
-~~The return will be something like this:~~
+The return will be something like this:
 
-~~<pre>{"Passport":"HK","VF":"112","VOA":"43","VR":"43"}</pre>~~
+<pre>{"Passport":"HK","VF":"112","VOA":"43","VR":"43"}</pre> -->
 
 ### Get list of countries sorted by visa requirements of a passport
 
