@@ -6,16 +6,18 @@ import (
 	"os"
 )
 
-type CountryList struct {
-	data []string
-}
+const fileDir = "/Users/nixon.p/Documents/Personal/passport-visa-api/data/country-code.csv"
 
-func (cl *CountryList) InitData() error {
-	if cl.data != nil {
+var (
+	countryList []string
+)
+
+func InitCountryData() error {
+	if len(countryList) > 0 {
 		return errors.New("country list already initilized")
 	}
 
-	err := loadData(cl)
+	err := loadCountryData(fileDir)
 	if err != nil {
 		return errors.New("unable to load data")
 	}
@@ -24,9 +26,9 @@ func (cl *CountryList) InitData() error {
 
 }
 
-func loadData(cl *CountryList) error {
+func loadCountryData(file string) error {
 
-	f, err := os.Open("data/country-code.csv")
+	f, err := os.Open(file)
 	if err != nil {
 		return errors.New("unable to open file")
 	}
@@ -39,10 +41,15 @@ func loadData(cl *CountryList) error {
 	}
 
 	// var list []string
+	countryList = make([]string, 0)
 
 	for _, v := range lines {
-		cl.data = append(cl.data, v[1])
+		countryList = append(countryList, v[1])
 	}
 
 	return nil
+}
+
+func GetCountryList() []string {
+	return countryList
 }

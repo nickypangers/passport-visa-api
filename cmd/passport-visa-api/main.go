@@ -17,14 +17,15 @@ func main() {
 
 	memory.InitVisaData()
 
-	visaData := memory.ReadVisaData()
+	visaData := memory.GetVisaData()
 
 	hkData := visaData["HK"].Destinations
 
-	for _, v := range hkData {
-		if v.Code == "VN" {
-			fmt.Println(v)
-		}
-	}
+	// for _, v := range hkData {
+	// 	if v.Code == "VN" {
+	// 		fmt.Println(v)
+	// 	}
+	// }
+	fmt.Println(hkData)
 
 }
