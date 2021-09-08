@@ -30,33 +30,35 @@ Scenario: I want to get the visa requirement of a Hong Kong passport to United K
 
 The return will be something like this:
 
-<pre>{"Passport":"HK","Destination":"GB","Code":"180"}</pre>
+<pre>{"passport":"HK","destination":"GB","dur":"180","status":"visa-free","category":"VF","last_updated":"Wed, 08 Sep 2021 17:37:25 GMT","error":{"status":false,"error":""}}</pre>
 
-### Get overall visa stats of a passport
+### ~~Get overall visa stats of a passport~~
 
-Scenario: I want to see how many visa free countries Hong Kong passport has. The correct API call will be:
+~~Scenario: I want to see how many visa free countries Hong Kong passport has. The correct API call will be:~~
 
-<pre>https<nolink>://passportvisa-api.herokuapp.com/api/HK</pre>
+~~<pre>https<nolink>://passportvisa-api.herokuapp.com/api/HK</pre>~~
 
-The return will be something like this:
+~~The return will be something like this:~~
 
-<pre>{"Passport":"HK","VF":"112","VOA":"43","VR":"43"}</pre>
+~~<pre>{"Passport":"HK","VF":"112","VOA":"43","VR":"43"}</pre>~~
 
 ### Get list of countries sorted by visa requirements of a passport
 
 Scenario: I want to see a list of countries sorted by visa requirements of United Arab Emirates passport. The correct API call will be:
 
-<pre>https<nolink>://passportvisa-api.herokuapp.com/list/api/AE</pre>
+<pre>https<nolink>://passportvisa-api.herokuapp.com/list/api/HK</pre>
 
 The return will be something like this:
 
-<pre>{"VF":["AL","AD","AG","AR","AM","AT","BS","BH","BB","BY","BE","BA","BW","BR","BN","BG","BF","TD","CL","CN","CO","CR","HR","CU","CY","CZ","DK","DM","DO","EC","EG","SV","EE","SZ","FJ","FI","FR","GM","GE","DE","GR","GD","GT","HT","HN","HK","HU","IS","ID","IE","IT","JP","JO","KZ","XK","KW","KG","LV","LB","LI","LT","LU","MY","ML","MT","MU","MX","FM","MD","MC","ME","MA","NR","NL","NI","MK","NO","OM","PS","PA","PY","PH","PL","PT","QA","RO","RU","KN","LC","SM","ST","SA","RS","SG","SK","SI","SB","ZA","KR","SS","ES","VC","SD","SE","CH","SY","TH","TO","TN","UA","UY","UZ","VU","VA"],"VOA":["AO","AU","AZ","BD","BJ","BO","BI","KH","CA","CV","CF","KM","CG","CD","CI","DJ","GQ","ET","GA","GN","GW","GY","IN","IR","KE","LA","LS","LR","MO","MG","MW","MV","MH","MR","MN","MZ","NA","NP","NZ","NE","NG","PK","PW","RW","WS","SN","SC","SL","SO","LK","SR","TW","TJ","TZ","TL","TG","TR","TV","UG","GB","VN","YE","ZM","ZW"],"VR":["AF","DZ","BZ","BT","CM","ER","GH","IQ","IL","JM","KI","LY","MM","KP","PG","PE","TT","TM","US","VE"]}</pre>
+<pre>{"Passport":"HK","VF":["AL","AD","AG","AM","AT","BS","BB","BY","BE","BZ","BJ","BA","BW","BR","BG","CV","CO","HR","CU","CY","CZ","DM","DO","EC","EG","EE","FI","FR","DE","GD","GY","HT","IS","IR","IE","IT","KI","XK","LV","LS","LI","LT","LU","MO","MW","MT","MU","MX","MD","MC","MN","ME","MA","NA","NL","NI","NE","MK","NO","PS","PA","PE","PT","QA","RO","KN","LC","SM","RS","SK","SI","ZA","ES","VC","SR","SE","CH","TZ","TH","TT","TN","TR","UG","UA","GB","UY","UZ","VA","VE","YE","ZM","ZW"],"VOA":["AO","BH","BO","BF","CA","KM","CI","GN","GW","JO","KE","LB","MG","MV","MR","MZ","NG","OM","PW","RW","WS","SC","SO","LK","TL","TG","TO","TV","AE"],"VR":["AF","DZ","BT","BI","CF","TD","CN","CG","CD","CR","DJ","SV","GQ","ER","SZ","ET","GA","GM","GE","GH","GT","HN","IQ","JM","KG","LR","LY","ML","NR","KP","PK","PY","ST","SN","SL","SS","SD","SY","TJ","TM","US","VU"],"CB":["AR","AU","AZ","BD","BN","KH","CM","CL","DK","FJ","GR","HU","IN","ID","IL","JP","KZ","KW","LA","MY","MH","FM","MM","NP","NZ","PG","PH","PL","RU","SA","SG","SB","KR","TW","VN"],"NA":null,"last_updated":"Wed, 08 Sep 2021 17:32:30 GMT","error":{"status":false,"error":""}}</pre>
 
-| Code | Meaning                         |
+| Code | Definition                      |
 | ---- | ------------------------------- |
 | VF   | Visa Free                       |
 | VOA  | Visa On Arrival (including ETA) |
 | VR   | Visa Required                   |
+| CB   | Covid Ban                       |
+| NA   | No Admission                    |
 
 ## Future Work
 
