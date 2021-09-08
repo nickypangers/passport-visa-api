@@ -65,5 +65,5 @@ func GetVisaBetweenCountry(passport, destination string) (storage.Visa, error) {
 		}
 	}
 
-	return storage.Visa{}, errors.New("unable to find result: passport: " + passport + "destination: " + destination)
+	return storage.Visa{}, errors.New("unable to find result for passport: " + passport + " destination: " + destination)
 }

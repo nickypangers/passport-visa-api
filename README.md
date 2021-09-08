@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.com/nickypangers/passport-visa-api.svg?branch=master)](https://travis-ci.com/nickypangers/passport-visa-api)
 
-This is an API for showing the visa requirements between two countries. The data is provided by this: https://github.com/ilyankou/passport-index-dataset
+This is an API for showing the visa requirements between two countries, based on: https://github.com/ilyankou/passport-index-dataset
+
+The API retrieves data from [Passport Index](https://www.passportindex.org/) every day for the most up-to-date visa information.
 
 ## Instructions
 
@@ -50,12 +52,12 @@ The return will be something like this:
 
 <pre>{"VF":["AL","AD","AG","AR","AM","AT","BS","BH","BB","BY","BE","BA","BW","BR","BN","BG","BF","TD","CL","CN","CO","CR","HR","CU","CY","CZ","DK","DM","DO","EC","EG","SV","EE","SZ","FJ","FI","FR","GM","GE","DE","GR","GD","GT","HT","HN","HK","HU","IS","ID","IE","IT","JP","JO","KZ","XK","KW","KG","LV","LB","LI","LT","LU","MY","ML","MT","MU","MX","FM","MD","MC","ME","MA","NR","NL","NI","MK","NO","OM","PS","PA","PY","PH","PL","PT","QA","RO","RU","KN","LC","SM","ST","SA","RS","SG","SK","SI","SB","ZA","KR","SS","ES","VC","SD","SE","CH","SY","TH","TO","TN","UA","UY","UZ","VU","VA"],"VOA":["AO","AU","AZ","BD","BJ","BO","BI","KH","CA","CV","CF","KM","CG","CD","CI","DJ","GQ","ET","GA","GN","GW","GY","IN","IR","KE","LA","LS","LR","MO","MG","MW","MV","MH","MR","MN","MZ","NA","NP","NZ","NE","NG","PK","PW","RW","WS","SN","SC","SL","SO","LK","SR","TW","TJ","TZ","TL","TG","TR","TV","UG","GB","VN","YE","ZM","ZW"],"VR":["AF","DZ","BZ","BT","CM","ER","GH","IQ","IL","JM","KI","LY","MM","KP","PG","PE","TT","TM","US","VE"]}</pre>
 
-| Code| Meaning                         |
-|-----|---------------------------------|
-| VF  | Visa Free                       |
-| VOA | Visa On Arrival (including ETA) |
-| VR  | Visa Required                   |
+| Code | Meaning                         |
+| ---- | ------------------------------- |
+| VF   | Visa Free                       |
+| VOA  | Visa On Arrival (including ETA) |
+| VR   | Visa Required                   |
 
 ## Future Work
 
-This project will be maintained and improve over time.
+This project will be maintained and improve over time. Feel free to contribute.

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -30,6 +31,9 @@ var (
 )
 
 func InitVisaData() error {
+
+	log.Println("initializing visa data")
+
 	if len(visaData) > 0 {
 		return errors.New("visa data already initialized")
 	}
@@ -39,10 +43,19 @@ func InitVisaData() error {
 		return err
 	}
 
+	log.Println("initializing visa data done")
+
 	return nil
 }
 
+func UpdateDataset() {
+
+}
+
 func updateVisaData() error {
+
+	log.Println("updating visa data")
+
 	client := &http.Client{}
 
 	// data := []byte(`{"compare":"1"}`)
@@ -69,12 +82,18 @@ func updateVisaData() error {
 		return err
 	}
 
-	err = json.Unmarshal(respBody, &visaData)
+	tempVisaData := VisaData{}
+
+	err = json.Unmarshal(respBody, &tempVisaData)
 	if err != nil {
 		return err
 	}
 
+	visaData = tempVisaData
+
 	timeVisaDataUpdated = time.Now().UTC()
+
+	log.Println("updating visa data done")
 
 	return nil
 }

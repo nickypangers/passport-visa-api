@@ -26,11 +26,15 @@ func InitCountryData() error {
 		return errors.New("unable to load data")
 	}
 
+	log.Println("initializing country data done")
+
 	return nil
 
 }
 
 func loadCountryData(file string) error {
+
+	log.Println("loading country data")
 
 	f, err := os.Open(file)
 	if err != nil {
@@ -51,7 +55,7 @@ func loadCountryData(file string) error {
 		countryList = append(countryList, strings.ToUpper(v[1]))
 	}
 
-	log.Println("load country data success")
+	log.Println("loading country data done")
 
 	return nil
 }
