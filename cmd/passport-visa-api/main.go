@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/nickypangers/passport-visa-api/pkg/server"
@@ -19,6 +20,8 @@ func main() {
 	}
 
 	memory.InitVisaData()
+
+	log.Println(memory.GetCountryList())
 
 	go func() {
 		for {
