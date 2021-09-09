@@ -3,6 +3,7 @@ package memory
 import (
 	"encoding/csv"
 	"errors"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -39,8 +40,8 @@ func getParentDir() string {
 	if err != nil {
 		panic(err)
 	}
-	
-	return filepath.Dir(filepath.Dir(filepath.Dir(wd)))
+
+	return filepath.Dir(filepath.Dir(wd))
 }
 
 func loadCountryData(filePath string) error {
@@ -69,6 +70,12 @@ func loadCountryData(filePath string) error {
 
 	for _, v := range lines {
 		countryList = append(countryList, strings.ToUpper(v[1]))
+	}
+
+	if len(GetCountryList()) != 199 {
+		errorStr := fmt.Sprintf("loading country data failed: length: %v", len(GetCountryList()))
+
+		return errors.New(errorStr)
 	}
 
 	log.Println("loading country data done")
