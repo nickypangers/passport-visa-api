@@ -20,6 +20,6 @@ jobs:
         with:
           go-version: ${{ matrix.go-version }}
       - name: Test version
-        run: cd pkg/version && go test -v && ../../
+        run: cd pkg/version && go test -v && cd ../../
       - name: Test memory
-        run: cd pkg/storage/memory && go test -v && ../../../
+        run: cd pkg/storage/memory && go test -v && cd ../../../
