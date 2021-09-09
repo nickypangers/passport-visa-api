@@ -5,10 +5,12 @@ import (
 	"errors"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
-const fileDir = "../../../data/country-code.csv"
+// const fileDir = "/data/country-code.csv"
+const fileDir = "/data/country-code.csv"
 
 var (
 	countryList []string
@@ -23,7 +25,7 @@ func InitCountryData() error {
 
 	err := loadCountryData(fileDir)
 	if err != nil {
-		return errors.New("unable to load data")
+		return err
 	}
 
 	log.Println("initializing country data done")
@@ -32,13 +34,26 @@ func InitCountryData() error {
 
 }
 
-func loadCountryData(file string) error {
+func getParentDir() string {
+	wd, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+	return filepath.Dir(filepath.Dir(wd))
+}
+
+func loadCountryData(filePath string) error {
 
 	log.Println("loading country data")
 
-	f, err := os.Open(file)
+	absFilePath, err := filepath.Abs(getParentDir() + filePath)
 	if err != nil {
-		return errors.New("unable to open file")
+		return errors.New("cannot get absolute file path: " + filePath)
+	}
+
+	f, err := os.Open(absFilePath)
+	if err != nil {
+		return errors.New("unable to open file: " + absFilePath)
 	}
 
 	defer f.Close()
