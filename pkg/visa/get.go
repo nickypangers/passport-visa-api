@@ -7,6 +7,10 @@ import (
 	"github.com/nickypangers/passport-visa-api/pkg/storage/memory"
 )
 
+// func getCategoryList() []string {
+// 	return []string{"VR", "VOA", "VF", "CB", "NA"}
+// }
+
 func GetVisaBetweenCountry(passport, destination string) (memory.Destination, error) {
 
 	if passport == destination {
@@ -45,18 +49,24 @@ func GetCountryVisaList(passport string) (json.Country, error) {
 	for _, v := range countryData.Destinations {
 		switch v.Category {
 		case "VR":
-			country.VR = append(country.VR, v.Code)
+			country.VR.Data = append(country.VR.Data, v.Code)
 		case "VOA":
-			country.VOA = append(country.VOA, v.Code)
+			country.VOA.Data = append(country.VOA.Data, v.Code)
 		case "VF":
-			country.VF = append(country.VF, v.Code)
+			country.VF.Data = append(country.VF.Data, v.Code)
 		case "CB":
-			country.CB = append(country.CB, v.Code)
+			country.CB.Data = append(country.CB.Data, v.Code)
 		case "NA":
-			country.NA = append(country.NA, v.Code)
+			country.NA.Data = append(country.NA.Data, v.Code)
 		default:
 		}
 	}
+
+	country.VR.Length = len(country.VR.Data)
+	country.VOA.Length = len(country.VOA.Data)
+	country.VF.Length = len(country.VF.Data)
+	country.CB.Length = len(country.CB.Data)
+	country.NA.Length = len(country.NA.Data)
 
 	return country, nil
 }
