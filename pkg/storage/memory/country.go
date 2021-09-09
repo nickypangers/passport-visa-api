@@ -39,7 +39,8 @@ func getParentDir() string {
 	if err != nil {
 		panic(err)
 	}
-	return filepath.Dir(filepath.Dir(wd))
+	
+	return filepath.Dir(filepath.Dir(filepath.Dir(wd)))
 }
 
 func loadCountryData(filePath string) error {
