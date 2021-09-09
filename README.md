@@ -1,6 +1,6 @@
 # Passport Visa API
 
-[![Build Status](https://travis-ci.com/nickypangers/passport-visa-api.svg?branch=master)](https://travis-ci.com/nickypangers/passport-visa-api)
+[![Test](https://github.com/nickypangers/passport-visa-api/actions/workflows/test.yaml/badge.svg)](https://github.com/nickypangers/passport-visa-api/actions/workflows/test.yaml)
 
 This is an API for showing the visa requirements between two countries, method based on: https://github.com/ilyankou/passport-index-dataset
 
