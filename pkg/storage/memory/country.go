@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-const fileDir = "../../data/country-code.csv"
+const fileDir = "../../../data/country-code.csv"
 
 var (
 	countryList []string

@@ -1,11 +1,11 @@
-name: Build Develop
+name: Test
 on:
   push:
     branches:
       - develop
     pull_request:
 jobs:
-  build:
+  test:
     strategy:
       matrix:
         go-version: [1.16.3]
@@ -13,8 +13,13 @@ jobs:
     runs-on: ${{ matrix.platform }}
     # container: 'golang:1.16.3'
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Install Go
         uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go-version }}
-      - run: echo "Hello World!"
+      - name: Test version
+        run: cd passport-visa-api/pkg/version && go test -v && ../../../
+      - name: Test memory
+        run: cd passport-visa-api/pkg/storage/memory && go test -v && ../../../../
