@@ -19,7 +19,9 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go-version }}
-      - name: Test version
-        run: cd passport-visa-api/pkg/version && go test -v && ../../../
-      - name: Test memory
-        run: cd passport-visa-api/pkg/storage/memory && go test -v && ../../../../
+      - name: Show Directory
+        run: ls -l
+      # - name: Test version
+      #   run: cd passport-visa-api/pkg/version && go test -v && ../../../
+      # - name: Test memory
+      #   run: cd passport-visa-api/pkg/storage/memory && go test -v && ../../../../
