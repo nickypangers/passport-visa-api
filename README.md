@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/nickypangers/passport-visa-api.svg?branch=master)](https://travis-ci.com/nickypangers/passport-visa-api)
 
-This is an API for showing the visa requirements between two countries, based on: https://github.com/ilyankou/passport-index-dataset
+This is an API for showing the visa requirements between two countries, method based on: https://github.com/ilyankou/passport-index-dataset
 
 The API retrieves data from [Passport Index](https://www.passportindex.org/) every day for the most up-to-date visa information.
 
