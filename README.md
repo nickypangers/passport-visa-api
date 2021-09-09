@@ -20,6 +20,55 @@ For the explanation of the Code result, please see:
 
 https://github.com/ilyankou/passport-index-dataset (see Dataset Values section)
 
+## Data Object Type
+
+### Visa requirement between two countries
+
+<pre>
+{
+    "passport": String,
+    "destination": String,
+    "dur": String,
+    "status": String,
+    "category": String,
+    "last_updated": String,
+    "error": Error,
+}
+</pre>
+
+### Visa information of a specific country
+
+<pre>
+{
+    "passport": String,
+    "VR": Category,
+    "VOA": Category,
+    "VF": Category,
+    "CB": Category,
+    "NA": Category,
+    "last_updated": String,
+    "error": Error,
+}
+</pre>
+
+### Category
+
+<pre>
+{
+    "data": Array (or null if empty),
+    "length": Number,
+}
+</pre>
+
+### Error
+
+<pre>
+{
+    "status": Boolean,
+    "error": String,
+}
+</pre>
+
 ## Examples
 
 ### Get visa requirement between two countries
@@ -32,30 +81,20 @@ The return will be something like this:
 
 <pre>{"passport":"HK","destination":"GB","dur":"180","status":"visa-free","category":"VF","last_updated":"Wed, 08 Sep 2021 17:37:25 GMT","error":{"status":false,"error":""}}</pre>
 
-<!-- ### Get overall visa stats of a passport
-
-Scenario: I want to see how many visa free countries Hong Kong passport has. The correct API call will be:
-
-<pre>https<nolink>://passportvisa-api.herokuapp.com/api/HK</pre>
-
-The return will be something like this:
-
-<pre>{"Passport":"HK","VF":"112","VOA":"43","VR":"43"}</pre> -->
-
 ### Get list of countries sorted by visa requirements of a passport
 
-Scenario: I want to see a list of countries sorted by visa requirements of United Arab Emirates passport. The correct API call will be:
+Scenario: I want to see a list of countries sorted by visa requirements of Russia Federation passport. The correct API call will be:
 
-<pre>https<nolink>://passportvisa-api.herokuapp.com/list/api/HK</pre>
+<pre>https<nolink>://passportvisa-api.herokuapp.com/list/api/RU</pre>
 
 The return will be something like this:
 
-<pre>{"Passport":"HK","VF":["AL","AD","AG","AM","AT","BS","BB","BY","BE","BZ","BJ","BA","BW","BR","BG","CV","CO","HR","CU","CY","CZ","DM","DO","EC","EG","EE","FI","FR","DE","GD","GY","HT","IS","IR","IE","IT","KI","XK","LV","LS","LI","LT","LU","MO","MW","MT","MU","MX","MD","MC","MN","ME","MA","NA","NL","NI","NE","MK","NO","PS","PA","PE","PT","QA","RO","KN","LC","SM","RS","SK","SI","ZA","ES","VC","SR","SE","CH","TZ","TH","TT","TN","TR","UG","UA","GB","UY","UZ","VA","VE","YE","ZM","ZW"],"VOA":["AO","BH","BO","BF","CA","KM","CI","GN","GW","JO","KE","LB","MG","MV","MR","MZ","NG","OM","PW","RW","WS","SC","SO","LK","TL","TG","TO","TV","AE"],"VR":["AF","DZ","BT","BI","CF","TD","CN","CG","CD","CR","DJ","SV","GQ","ER","SZ","ET","GA","GM","GE","GH","GT","HN","IQ","JM","KG","LR","LY","ML","NR","KP","PK","PY","ST","SN","SL","SS","SD","SY","TJ","TM","US","VU"],"CB":["AR","AU","AZ","BD","BN","KH","CM","CL","DK","FJ","GR","HU","IN","ID","IL","JP","KZ","KW","LA","MY","MH","FM","MM","NP","NZ","PG","PH","PL","RU","SA","SG","SB","KR","TW","VN"],"NA":null,"last_updated":"Wed, 08 Sep 2021 17:32:30 GMT","error":{"status":false,"error":""}}</pre>
+<pre>{"Passport":"RU","VF":{"data":["AL","AG","AM","AZ","BS","BB","BY","BO","BA","BW","BR","CV","CO","CR","CU","DM","DO","EC","SV","SZ","GM","GE","GD","GT","GY","HT","HN","HK","KZ","KG","MV","MU","MD","MN","ME","MA","NA","NI","MK","PW","PS","PA","PY","PE","QA","KN","LC","WS","ST","RS","ZA","VC","SR","TJ","TH","TT","TN","TR","UA","AE","UY","UZ","VE"],"length":63},"VOA":{"data":["AO","BH","KM","CI","EG","GA","GN","GW","IR","IQ","JM","JO","KE","LB","LS","MG","MW","MR","MX","MZ","NR","NG","OM","RW","SN","SC","SL","SO","LK","TL","TG","TO","TV","ZM","ZW"],"length":35},"VR":{"data":["AF","DZ","AD","AT","BZ","BJ","BT","BG","BF","BI","CF","TD","CN","CG","CD","HR","DJ","GQ","ER","EE","ET","FI","FR","DE","GH","IS","IE","KI","XK","LV","LR","LY","LI","LT","ML","MC","NL","NE","KP","NO","PK","RO","SK","SI","SS","ES","SD","CH","SY","TZ","TM","UG","GB","US","VU","YE"],"length":56},"CB":{"data":["AR","AU","BD","BE","BN","KH","CM","CA","CL","CY","CZ","DK","FJ","GR","HU","IN","ID","IL","IT","JP","KW","LA","LU","MO","MY","MT","MH","FM","MM","NP","NZ","PG","PH","PL","PT","SM","SA","SG","SB","KR","SE","TW","VA","VN"],"length":44},"NA":{"data":null,"length":0},"last_updated":"Thu, 09 Sep 2021 06:49:28 GMT","error":{"status":false,"error":""}}</pre>
 
 | Code | Definition                      |
 | ---- | ------------------------------- |
 | VF   | Visa Free                       |
-| VOA  | Visa On Arrival (including ETA) |
+| VOA  | Visa On Arrival (including eTA) |
 | VR   | Visa Required                   |
 | CB   | Covid Ban                       |
 | NA   | No Admission                    |
