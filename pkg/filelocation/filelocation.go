@@ -1,7 +1,7 @@
 package filelocation
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"strings"
 )
@@ -21,12 +21,14 @@ func GetParentDir() string {
 		panic(err)
 	}
 
+	log.Println(wd)
+
 	splitArray := strings.Split(wd, "/")
 	pkgIndex := getIndexOfElement(splitArray, "pkg")
 
 	splitArray = splitArray[:pkgIndex]
 
-	fmt.Println(splitArray)
+	log.Println(splitArray)
 
 	parentDir := strings.Join(splitArray, "/")
 
