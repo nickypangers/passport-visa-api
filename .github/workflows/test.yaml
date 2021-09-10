@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go-version }}
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v2.5.2
       - name: Test version
         run: cd pkg/version && go test -v && cd ../../
       - name: Test memory
