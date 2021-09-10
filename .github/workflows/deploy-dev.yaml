@@ -1,0 +1,19 @@
+name: Deploy to Development Server
+
+on:
+  workflow-run:
+    workflows: ["Test"]
+    branches: [develop]
+    types:
+      - completed
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.DEV_HEROKU_API_KEY}}
+          heroku_app_name: passport-visa-api-dev #Must be unique in Heroku
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
