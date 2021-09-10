@@ -1,6 +1,7 @@
 package filelocation
 
 import (
+	"log"
 	"os"
 	"path/filepath"
 )
@@ -10,6 +11,8 @@ func GetParentDir() string {
 	if err != nil {
 		panic(err)
 	}
+
+	log.Println("parent dir:", filepath.Dir(filepath.Dir(wd)))
 
 	return filepath.Dir(filepath.Dir(wd))
 }
