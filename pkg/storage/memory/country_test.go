@@ -10,7 +10,7 @@ func TestCountryListBeforeInit(t *testing.T) {
 }
 
 func TestLoadData(t *testing.T) {
-	err := loadCountryData(fileDir)
+	err := loadCountryData()
 	length := len(countryList)
 	if length != 199 || err != nil {
 		t.Fatalf("loadData() = %q, %v, want match for 199, nil", length, err)
