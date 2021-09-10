@@ -41,17 +41,21 @@ func loadCountryData(filePath string) error {
 
 	log.Println("loading country data")
 
-	isFileExist := filelocation.IsFileExist(filelocation.GetParentDir() + filePath)
+	filePath = filelocation.GetParentDir() + filePath
+
+	log.Println("file path:", filePath)
+
+	isFileExist := filelocation.IsFileExist(filePath)
 	if !isFileExist {
-		return errors.New("file does not exist: " + filelocation.GetParentDir() + filePath)
+		return errors.New("file does not exist: " + filePath)
 	}
 
-	absFilePath, err := filepath.Abs(filelocation.GetParentDir() + filePath)
+	absFilePath, err := filepath.Abs(filePath)
 	if err != nil {
-		return errors.New("cannot get absolute file path: " + filePath)
+		return errors.New("cannot get absolute file path: " + absFilePath)
 	}
 
-	f, err := os.Open(absFilePath)
+	f, err := os.Open(filePath)
 	if err != nil {
 		return errors.New("unable to open file: " + absFilePath)
 	}
