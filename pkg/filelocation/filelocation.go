@@ -1,10 +1,19 @@
 package filelocation
 
 import (
-	"log"
+	"fmt"
 	"os"
-	"path/filepath"
+	"strings"
 )
+
+func getIndexOfElement(array []string, elem string) int {
+	for i, v := range array {
+		if v == elem {
+			return i
+		}
+	}
+	return -1
+}
 
 func GetParentDir() string {
 	wd, err := os.Getwd()
@@ -12,9 +21,21 @@ func GetParentDir() string {
 		panic(err)
 	}
 
-	log.Println("parent dir:", filepath.Dir(filepath.Dir(wd)))
+	splitArray := strings.Split(wd, "/")
+	pkgIndex := getIndexOfElement(splitArray, "pkg")
 
-	return filepath.Dir(filepath.Dir(wd))
+	splitArray = splitArray[:pkgIndex]
+
+	fmt.Println(splitArray)
+
+	parentDir := strings.Join(splitArray, "/")
+
+	// fmt.Println(wd)
+	return parentDir
+
+	// log.Println("parent dir:", filepath.Dir(filepath.Dir(wd)))
+
+	// return filepath.Dir(filepath.Dir(wd))
 }
 
 func IsFileExist(path string) bool {
