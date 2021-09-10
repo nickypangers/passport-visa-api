@@ -41,7 +41,7 @@ func loadCountryData(filePath string) error {
 
 	log.Println("loading country data")
 
-	filePath = filelocation.GetParentDir() + filePath
+	filePath = filelocation.GetParentDir("bin") + filePath
 
 	log.Println("file path:", filePath)
 

@@ -3,7 +3,6 @@ package server
 import (
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -18,7 +17,7 @@ func NewAPIServer() {
 	r.HandleFunc("/updateVisaData", updateVisaDataHandler)
 
 	http.Handle("/", r)
-	log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
-	// log.Println(http.ListenAndServe(":8080", nil))
+	// log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
+	log.Println(http.ListenAndServe(":8080", nil))
 
 }

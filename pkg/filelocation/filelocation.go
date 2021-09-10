@@ -15,7 +15,7 @@ func getIndexOfElement(array []string, elem string) int {
 	return -1
 }
 
-func GetParentDir() string {
+func GetParentDir(keyword string) string {
 	wd, err := os.Getwd()
 	if err != nil {
 		panic(err)
@@ -24,7 +24,7 @@ func GetParentDir() string {
 	log.Println(wd)
 
 	splitArray := strings.Split(wd, "/")
-	pkgIndex := getIndexOfElement(splitArray, "pkg")
+	pkgIndex := getIndexOfElement(splitArray, keyword)
 
 	splitArray = splitArray[:pkgIndex]
 

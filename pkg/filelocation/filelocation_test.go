@@ -6,11 +6,11 @@ import (
 )
 
 func TestGetParentDir(t *testing.T) {
-	path := GetParentDir()
+	path := GetParentDir("pkg")
 	t.Log(filepath.Abs(path))
 }
 
 func TestIsFileExist(t *testing.T) {
-	path := GetParentDir()
+	path := GetParentDir("pkg")
 	t.Log(IsFileExist(path + "/data/country-code.csv"))
 }
