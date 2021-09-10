@@ -73,31 +73,37 @@ https://github.com/ilyankou/passport-index-dataset (see Dataset Values section)
 
 ### Get visa requirement between two countries
 
-Scenario: I want to get the visa requirement of a Hong Kong passport to United Kingdom. The correct API call will be:
+Passport Country: Hong Kong, Destination Country: United Kingdom
+
+Query:
 
 <pre>https<nolink>://passportvisa-api.herokuapp.com/api/HK/GB</pre>
 
-The return will be something like this:
+Result:
 
 <pre>{"passport":"HK","destination":"GB","dur":"180","status":"visa-free","category":"VF","last_updated":"Wed, 08 Sep 2021 17:37:25 GMT","error":{"status":false,"error":""}}</pre>
 
 ### Get list of countries sorted by visa requirements of a passport
 
-Scenario: I want to see a list of countries sorted by visa requirements of Russia Federation passport. The correct API call will be:
+Passport Country: Russia
+
+Query:
 
 <pre>https<nolink>://passportvisa-api.herokuapp.com/list/api/RU</pre>
 
-The return will be something like this:
+Result:
 
 <pre>{"Passport":"RU","VF":{"data":["AL","AG","AM","AZ","BS","BB","BY","BO","BA","BW","BR","CV","CO","CR","CU","DM","DO","EC","SV","SZ","GM","GE","GD","GT","GY","HT","HN","HK","KZ","KG","MV","MU","MD","MN","ME","MA","NA","NI","MK","PW","PS","PA","PY","PE","QA","KN","LC","WS","ST","RS","ZA","VC","SR","TJ","TH","TT","TN","TR","UA","AE","UY","UZ","VE"],"length":63},"VOA":{"data":["AO","BH","KM","CI","EG","GA","GN","GW","IR","IQ","JM","JO","KE","LB","LS","MG","MW","MR","MX","MZ","NR","NG","OM","RW","SN","SC","SL","SO","LK","TL","TG","TO","TV","ZM","ZW"],"length":35},"VR":{"data":["AF","DZ","AD","AT","BZ","BJ","BT","BG","BF","BI","CF","TD","CN","CG","CD","HR","DJ","GQ","ER","EE","ET","FI","FR","DE","GH","IS","IE","KI","XK","LV","LR","LY","LI","LT","ML","MC","NL","NE","KP","NO","PK","RO","SK","SI","SS","ES","SD","CH","SY","TZ","TM","UG","GB","US","VU","YE"],"length":56},"CB":{"data":["AR","AU","BD","BE","BN","KH","CM","CA","CL","CY","CZ","DK","FJ","GR","HU","IN","ID","IL","IT","JP","KW","LA","LU","MO","MY","MT","MH","FM","MM","NP","NZ","PG","PH","PL","PT","SM","SA","SG","SB","KR","SE","TW","VA","VN"],"length":44},"NA":{"data":null,"length":0},"last_updated":"Thu, 09 Sep 2021 06:49:28 GMT","error":{"status":false,"error":""}}</pre>
 
-| Code | Definition                      |
-| ---- | ------------------------------- |
-| VF   | Visa Free                       |
-| VOA  | Visa On Arrival (including eTA) |
-| VR   | Visa Required                   |
-| CB   | Covid Ban                       |
-| NA   | No Admission                    |
+## Category Definition
+
+| Category | Definition                      |
+| -------- | ------------------------------- |
+| VF       | Visa Free                       |
+| VOA      | Visa On Arrival (including eTA) |
+| VR       | Visa Required                   |
+| CB       | Covid Ban                       |
+| NA       | No Admission                    |
 
 ## Future Work
 
