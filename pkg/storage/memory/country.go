@@ -8,6 +8,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/nickypangers/passport-visa-api/pkg/filelocation"
 )
 
 // const fileDir = "/data/country-code.csv"
@@ -35,20 +37,16 @@ func InitCountryData() error {
 
 }
 
-func getParentDir() string {
-	wd, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-
-	return filepath.Dir(filepath.Dir(wd))
-}
-
 func loadCountryData(filePath string) error {
 
 	log.Println("loading country data")
 
-	absFilePath, err := filepath.Abs(getParentDir() + filePath)
+	isFileExist := filelocation.IsFileExist(filelocation.GetParentDir() + filePath)
+	if !isFileExist {
+		return errors.New("file does not exist: " + filelocation.GetParentDir() + filePath)
+	}
+
+	absFilePath, err := filepath.Abs(filelocation.GetParentDir() + filePath)
 	if err != nil {
 		return errors.New("cannot get absolute file path: " + filePath)
 	}

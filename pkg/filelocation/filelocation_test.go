@@ -1,10 +1,13 @@
 package filelocation
 
-import "testing"
+import (
+	"path/filepath"
+	"testing"
+)
 
 func TestGetParentDir(t *testing.T) {
 	path := GetParentDir()
-	t.Log(path)
+	t.Log(filepath.Abs(path))
 }
 
 func TestIsFileExist(t *testing.T) {
