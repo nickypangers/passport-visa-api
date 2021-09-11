@@ -2,7 +2,6 @@ package server
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 	"strings"
 
@@ -36,7 +35,8 @@ func getVisaBetweenCountryHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(result)
 	if err != nil {
-		log.Println(err)
+		http.Error(w, err.Error(), http.StatusFailedDependency)
+		return
 	}
 
 }
@@ -63,7 +63,8 @@ func getCountryVisaListHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(result)
 	if err != nil {
-		log.Println(err)
+		http.Error(w, err.Error(), http.StatusFailedDependency)
+		return
 	}
 }
 
@@ -82,6 +83,7 @@ func updateVisaDataHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(result)
 	if err != nil {
-		log.Println(err)
+		http.Error(w, err.Error(), http.StatusFailedDependency)
+		return
 	}
 }
