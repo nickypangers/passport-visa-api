@@ -18,7 +18,14 @@ func NewAPIServer() {
 	r.HandleFunc("/updateVisaData", updateVisaDataHandler)
 
 	http.Handle("/", r)
-	log.Println(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
+
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "3000"
+	}
+
+	log.Println(http.ListenAndServe(":"+port, nil))
 	// log.Println(http.ListenAndServe(":8080", nil))
 
 }
