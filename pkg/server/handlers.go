@@ -33,7 +33,11 @@ func getVisaBetweenCountryHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(result)
+	err = json.NewEncoder(w).Encode(result)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusFailedDependency)
+		return
+	}
 
 }
 
@@ -57,7 +61,11 @@ func getCountryVisaListHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(result)
+	err = json.NewEncoder(w).Encode(result)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusFailedDependency)
+		return
+	}
 }
 
 func updateVisaDataHandler(w http.ResponseWriter, r *http.Request) {
@@ -73,5 +81,9 @@ func updateVisaDataHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(result)
+	err = json.NewEncoder(w).Encode(result)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusFailedDependency)
+		return
+	}
 }

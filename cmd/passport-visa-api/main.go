@@ -20,7 +20,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	memory.InitVisaData()
+	err = memory.InitVisaData()
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
@@ -29,7 +29,11 @@ func main() {
 	go func() {
 		for {
 			time.Sleep(24 * time.Hour)
-			memory.UpdateVisaData()
+			err := memory.UpdateVisaData()
+			if err != nil {
+				log.Println(err)
+			}
+			continue
 		}
 	}()
 
