@@ -4,9 +4,7 @@ This folder is used for storing your authentication token used when requesting a
 
 ## Instructions
 
-Simply rename the _example.go_ file to _constants.go_, and edit and uncomment the content to your preference before compiling and running.
-
-You can toggle whether to allow request for updating data without a token by changing the constant _TokenOnly_ to **FALSE**.
+Simply rename the _example.go_ file to _constants.go_, and edit, remove the underscores and uncomment the content to your preference before compiling and running.
 
 ## Constant Definitions
 

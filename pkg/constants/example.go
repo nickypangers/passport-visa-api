@@ -1,14 +1,14 @@
-// package constants
+package constants
 
-// const (
-// 	tokenOnly = true
-// 	authToken = "testing"
-// )
+const (
+	_tokenOnly = true
+	_authToken = "testing"
+)
 
-// func GetTokenOnly() bool {
-// 	return tokenOnly
-// }
+func GetTokenOnly_() bool {
+	return _tokenOnly
+}
 
-// func GetAuthToken() string {
-// 	return authToken
-// }
+func GetAuthToken_() string {
+	return _authToken
+}
