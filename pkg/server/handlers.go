@@ -76,9 +76,9 @@ func updateVisaDataHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if constants.TokenOnly {
+	if constants.GetTokenOnly() {
 		authToken := r.FormValue("authToken")
-		if authToken != constants.AuthToken {
+		if authToken != constants.GetAuthToken() {
 			http.Error(w, "401 Unauthorized", http.StatusUnauthorized)
 			return
 		}
