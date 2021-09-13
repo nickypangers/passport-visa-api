@@ -1,4 +1,4 @@
-package constants
+// package constants
 
 // const (
 // 	tokenOnly = true
