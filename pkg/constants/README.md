@@ -4,7 +4,24 @@ This folder is used for storing your authentication token used when requesting a
 
 ## Instructions
 
-Simply rename the _example.go_ file to _constants.go_, and edit, remove the underscores and uncomment the content to your preference before compiling and running.
+Create a _constants.go_ file with the following content:
+
+<pre>
+package constants
+
+const (
+	tokenOnly = true
+	authToken = "testing"
+)
+
+func GetTokenOnly() bool {
+	return tokenOnly
+}
+
+func GetAuthToken() string {
+	return authToken
+}
+</pre>
 
 ## Constant Definitions
 
