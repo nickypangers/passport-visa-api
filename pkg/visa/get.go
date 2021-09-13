@@ -24,7 +24,6 @@ func GetVisaBetweenCountry(passport, destination string) (memory.Destination, er
 	countryData := visaData[passport]
 	for _, v := range countryData.Destinations {
 		if v.Code == destination {
-
 			return v, nil
 		}
 	}

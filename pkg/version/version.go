@@ -11,7 +11,7 @@ type Version struct {
 }
 
 var (
-	APIVersion = Version{Major: "1", Minor: "0", Patch: "0", Metadata: "", Build: ""}
+	APIVersion = Version{Major: "1", Minor: "1", Patch: "0", Metadata: "", Build: ""}
 )
 
 // func Version() string {

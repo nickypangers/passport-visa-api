@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/gorilla/mux"
+	"github.com/nickypangers/passport-visa-api/pkg/constants"
 	storageJson "github.com/nickypangers/passport-visa-api/pkg/storage/json"
 	"github.com/nickypangers/passport-visa-api/pkg/storage/memory"
 	"github.com/nickypangers/passport-visa-api/pkg/visa"
@@ -70,6 +71,19 @@ func getCountryVisaListHandler(w http.ResponseWriter, r *http.Request) {
 
 func updateVisaDataHandler(w http.ResponseWriter, r *http.Request) {
 
+	if r.Method != "POST" {
+		http.Error(w, "404 not found.", http.StatusNotFound)
+		return
+	}
+
+	if constants.TokenOnly {
+		authToken := r.FormValue("authToken")
+		if authToken != constants.AuthToken {
+			http.Error(w, "401 Unauthorized", http.StatusUnauthorized)
+			return
+		}
+	}
+
 	result := storageJson.Error{}
 
 	err := memory.UpdateVisaData()
@@ -83,7 +97,7 @@ func updateVisaDataHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(result)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusFailedDependency)
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 }
