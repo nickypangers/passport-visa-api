@@ -15,7 +15,11 @@ To GET the visa requirement between two countries, <pre>https<nolink>://passport
 
 To GET the visa stats of a country, <pre>https<nolink>://passportvisa-api.herokuapp.com/api/{passport country}</pre>
 
-To GET the list of countries sorted by the visa requirements of a country, <pre>https<nolink>://passportvisa-api-herokuapp.com/list/api/{passport country}</pre>
+To GET the list of countries sorted by the visa requirements of a country, <pre>https<nolink>://passportvisa-api.herokuapp.com/list/api/{passport country}</pre>
+
+To GET the list of countries,
+
+<pre>https<nolink>://passportvisa-api.herokuapp.com/countryList</pre>
 
 where the passport country and destination country are in ISO 2 Country code format. To see all the ISO 2 Country codes, visit [here](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 
@@ -51,6 +55,25 @@ https://github.com/ilyankou/passport-index-dataset (see Dataset Values section)
     "NA": Category,
     "last_updated": String,
     "error": Error,
+}
+</pre>
+
+### List of Countries
+
+<pre>
+{
+    "list": Array < Country >,
+    "last_updated": String,
+    "error": Error,
+}
+</pre>
+
+### Country
+
+<pre>
+{
+    "name": String,
+    "code": String,
 }
 </pre>
 
