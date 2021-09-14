@@ -15,6 +15,7 @@ func NewAPIServer() {
 	r := mux.NewRouter()
 	r.HandleFunc("/api/{p}/{d}", getVisaBetweenCountryHandler)
 	r.HandleFunc("/api/{p}", getCountryVisaListHandler)
+	r.HandleFunc("/countryList", getCountryListHandler)
 
 	if constants.GetManualUpdate() {
 		r.HandleFunc("/updateVisaData", updateVisaDataHandler)

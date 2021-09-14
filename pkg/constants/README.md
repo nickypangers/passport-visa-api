@@ -4,7 +4,7 @@ This folder is used for storing your authentication token used when requesting a
 
 ## Instructions
 
-Update _constants.go_ to your preferences.
+Update _constants.go_ to your preference.
 
 ## Constant Definitions
 

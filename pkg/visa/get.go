@@ -31,19 +31,19 @@ func GetVisaBetweenCountry(passport, destination string) (memory.Destination, er
 	return memory.Destination{}, errors.New("unable to find result for passport: " + passport + " destination: " + destination)
 }
 
-func GetCountryVisaList(passport string) (json.Country, error) {
+func GetCountryVisaList(passport string) (json.CountryInfo, error) {
 
 	visaData := memory.GetVisaData()
 	if len(visaData) == 0 {
-		return json.Country{}, errors.New("visa data is empty")
+		return json.CountryInfo{}, errors.New("visa data is empty")
 	}
 
 	countryData := visaData[passport]
 	if len(countryData.Destinations) == 0 {
-		return json.Country{}, errors.New("country data is empty")
+		return json.CountryInfo{}, errors.New("country data is empty")
 	}
 
-	country := json.Country{Passport: passport}
+	country := json.CountryInfo{Passport: passport}
 
 	for _, v := range countryData.Destinations {
 		switch v.Category {

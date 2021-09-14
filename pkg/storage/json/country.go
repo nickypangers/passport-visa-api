@@ -1,6 +1,6 @@
 package json
 
-type Country struct {
+type CountryInfo struct {
 	Passport    string       `json:"Passport"`
 	VF          CategoryData `json:"VF"`
 	VOA         CategoryData `json:"VOA"`
@@ -30,3 +30,14 @@ type CategoryData struct {
 // type CountryList struct {
 // 	Countries []string `json:"countries"`
 // }
+
+type Country struct {
+	Name string `json:"name"`
+	Code string `json:"code"`
+}
+
+type CountryList struct {
+	List        []Country `json:"list"`
+	LastUpdated string    `json:"last_updated"`
+	Error       Error     `json:"error"`
+}

@@ -9,12 +9,12 @@ import (
 func TestGetVisabetweenCountry(t *testing.T) {
 	err := memory.InitCountryData()
 	if err != nil {
-		t.Fatalf("Unable to initialize country data: %v", err)
+		t.Fatalf("%v", err)
 	}
 
 	err = memory.InitVisaData()
 	if err != nil {
-		t.Fatalf("Unable to initialize visa data: %v", err)
+		t.Fatalf("%v", err)
 	}
 
 	result, err := GetVisaBetweenCountry("HK", "GB")

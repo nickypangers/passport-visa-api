@@ -107,8 +107,8 @@ func addVisaCategory(vd *VisaData) error {
 	}
 
 	for _, v := range countryList {
-		for j, d := range (*vd)[v].Destinations {
-			(*vd)[v].Destinations[j].Category = sortVisaCategory(d)
+		for j, d := range (*vd)[v.Code].Destinations {
+			(*vd)[v.Code].Destinations[j].Category = sortVisaCategory(d)
 		}
 	}
 

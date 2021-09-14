@@ -7,12 +7,14 @@ import (
 	"log"
 	"net/http"
 	"strings"
+
+	storageJson "github.com/nickypangers/passport-visa-api/pkg/storage/json"
 )
 
 const rawFile = "https://gist.githubusercontent.com/nickypangers/bedd1dafe84a97d163e157575843346e/raw/b2ff15d9df8ed76b3285660b54bfe6a0ae055bce/country-code.csv"
 
 var (
-	countryList []string
+	countryList []storageJson.Country
 )
 
 func InitCountryData() error {
@@ -52,10 +54,10 @@ func loadCountryData() error {
 	}
 
 	// var list []string
-	countryList = make([]string, 0)
+	countryList = make([]storageJson.Country, 0)
 
 	for _, v := range lines {
-		countryList = append(countryList, strings.ToUpper(v[1]))
+		countryList = append(countryList, storageJson.Country{Name: v[0], Code: strings.ToUpper(v[1])})
 	}
 
 	if len(GetCountryList()) != 199 {
@@ -69,6 +71,6 @@ func loadCountryData() error {
 	return nil
 }
 
-func GetCountryList() []string {
+func GetCountryList() []storageJson.Country {
 	return countryList
 }
