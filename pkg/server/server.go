@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/nickypangers/passport-visa-api/pkg/constants"
 )
 
 func NewAPIServer() {
@@ -15,7 +16,9 @@ func NewAPIServer() {
 	r.HandleFunc("/api/{p}/{d}", getVisaBetweenCountryHandler)
 	r.HandleFunc("/api/{p}", getCountryVisaListHandler)
 
-	r.HandleFunc("/updateVisaData", updateVisaDataHandler)
+	if constants.GetManualUpdate() {
+		r.HandleFunc("/updateVisaData", updateVisaDataHandler)
+	}
 
 	http.Handle("/", r)
 
@@ -26,6 +29,5 @@ func NewAPIServer() {
 	}
 
 	log.Println(http.ListenAndServe(":"+port, nil))
-	// log.Println(http.ListenAndServe(":8080", nil))
 
 }

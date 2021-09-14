@@ -38,4 +38,3 @@ Thumbs.db
 
 # Constant files     #
 ######################
-pkg/constants/constants.go

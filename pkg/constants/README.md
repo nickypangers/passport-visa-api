@@ -4,28 +4,12 @@ This folder is used for storing your authentication token used when requesting a
 
 ## Instructions
 
-Create a _constants.go_ file with the following content:
-
-<pre>
-package constants
-
-const (
-	tokenOnly = true
-	authToken = "testing"
-)
-
-func GetTokenOnly() bool {
-	return tokenOnly
-}
-
-func GetAuthToken() string {
-	return authToken
-}
-</pre>
+Update _constants.go_ to your preferences.
 
 ## Constant Definitions
 
-| Constant  | Definition                                                          |
-| --------- | ------------------------------------------------------------------- |
-| TokenOnly | Allow (TRUE) / PREVENT (FALSE) update request for non-token holders |
-| AuthToken | Authentication token                                                |
+| Constant     | Definition                                                    |
+| ------------ | ------------------------------------------------------------- |
+| manualUpdate | **Enable** / **disable** /api/updateVisaData endpoint         |
+| tokenOnly    | **Enable** / **disable** update request for non-token holders |
+| authToken    | Authentication token                                          |
