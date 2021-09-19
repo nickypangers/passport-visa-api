@@ -16,6 +16,7 @@ func NewAPIServer() {
 	r.HandleFunc("/api/{p}/{d}", getVisaBetweenCountryHandler)
 	r.HandleFunc("/api/{p}", getCountryVisaListHandler)
 	r.HandleFunc("/countryList", getCountryListHandler)
+	r.HandleFunc("/raw", getRawVisaDataHandler)
 
 	if constants.GetManualUpdate() {
 		r.HandleFunc("/updateVisaData", updateVisaDataHandler)

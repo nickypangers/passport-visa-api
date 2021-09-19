@@ -115,3 +115,26 @@ func updateVisaDataHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func getRawVisaDataHandler(w http.ResponseWriter, r *http.Request) {
+
+	type RawData struct {
+		Data        memory.VisaData   `json:"data"`
+		LastUpdated string            `json:"last_updated"`
+		Error       storageJson.Error `json:"error"`
+	}
+
+	result := RawData{}
+
+	result.Data = memory.GetVisaData()
+	result.LastUpdated = memory.GetTimeVisaDataUpdated()
+	result.Error = storageJson.Error{}
+
+	w.Header().Set("Content-Type", "application/json")
+	err := json.NewEncoder(w).Encode(result)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+}

@@ -26,6 +26,8 @@ func main() {
 		os.Exit(1)
 	}
 
+	// fmt.Println(memory.GetVisaData())
+
 	go func() {
 		for {
 			time.Sleep(24 * time.Hour)
