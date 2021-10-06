@@ -158,7 +158,7 @@ func sortVisaCategory(d Destination) string {
 		return "NA"
 	}
 
-	return "VR"
+	return "VF"
 
 }
 
