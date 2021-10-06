@@ -154,7 +154,11 @@ func sortVisaCategory(d Destination) string {
 		return "CB"
 	}
 
-	return "VF"
+	if d.Status == "not admitted" {
+		return "NA"
+	}
+
+	return "VR"
 
 }
 
