@@ -36,5 +36,9 @@
 ehthumbs.db
 Thumbs.db
 
+# VS Code files #
+#################
+.vscode/
+
 # Constant files     #
 ######################
