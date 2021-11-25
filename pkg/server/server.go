@@ -17,6 +17,7 @@ func NewAPIServer() {
 	r.HandleFunc("/api/{p}", getCountryVisaListHandler)
 	r.HandleFunc("/countryList", getCountryListHandler)
 	r.HandleFunc("/raw", getRawVisaDataHandler)
+	r.HandleFunc("/appversion", getAppVersionHandler)
 
 	if constants.GetManualUpdate() {
 		r.HandleFunc("/updateVisaData", updateVisaDataHandler)
@@ -27,7 +28,7 @@ func NewAPIServer() {
 	port := os.Getenv("PORT")
 
 	if port == "" {
-		port = "3000"
+		port = "3001"
 	}
 
 	log.Println(http.ListenAndServe(":"+port, nil))

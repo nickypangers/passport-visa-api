@@ -4,6 +4,7 @@ const (
 	manualUpdate = false      // enable/disable /api/updateVisaData endpoint
 	tokenOnly    = true       // enable/disable token holders access to update visa data only
 	authToken    = "password" // authentication token
+	appVersion   = "2.0.0"
 )
 
 func GetManualUpdate() bool {
@@ -16,4 +17,8 @@ func GetTokenOnly() bool {
 
 func GetAuthToken() string {
 	return authToken
+}
+
+func GetAppVersion() string {
+	return appVersion
 }

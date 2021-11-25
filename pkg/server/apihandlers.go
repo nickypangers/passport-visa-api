@@ -138,3 +138,19 @@ func getRawVisaDataHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+func getAppVersionHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	type AppData struct {
+		AppVersion string `json:"app_version"`
+	}
+
+	result := AppData{AppVersion: constants.GetAppVersion()}
+
+	err := json.NewEncoder(w).Encode(result)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+}
