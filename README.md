@@ -1,8 +1,8 @@
 # Passport Visa API
 
 [![Test](https://github.com/nickypangers/passport-visa-api/actions/workflows/test.yaml/badge.svg)](https://github.com/nickypangers/passport-visa-api/actions/workflows/test.yaml)
-![current version](https://img.shields.io/badge/current%20version-1.0.0-green)
-![beta version](https://img.shields.io/badge/beta%20version-1.1.0-green)
+![current version](https://img.shields.io/badge/current%20version-1.1.1-green)
+![beta version](https://img.shields.io/badge/beta%20version-1.1.1-green)
 [![Coverage Status](https://coveralls.io/repos/github/nickypangers/passport-visa-api/badge.svg?branch=master)](https://coveralls.io/github/nickypangers/passport-visa-api?branch=master)
 
 This is an API for showing the visa requirements between two countries, method based on: https://github.com/ilyankou/passport-index-dataset
