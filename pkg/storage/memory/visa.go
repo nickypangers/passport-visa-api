@@ -120,9 +120,6 @@ func sortVisaCategory(d Destination) string {
 	if d.Status == "visa required" {
 		return "VR"
 	}
-	// if d.Status == "pre-visa on arrival" {
-	// 	return "VR"
-	// }
 	if strings.Contains(d.Status, "eVisa") {
 		if d.Duration == "" {
 			return "VR"
