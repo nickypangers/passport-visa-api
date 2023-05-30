@@ -11,15 +11,15 @@ The API retrieves data from [Passport Index](https://www.passportindex.org/) eve
 
 ## Instructions
 
-To GET the visa requirement between two countries, <pre>https<nolink>://passportvisa-api.herokuapp.com/api/{passport country}/{destination country}</pre>
+To GET the visa requirement between two countries, <pre>https<nolink>://rough-sun-2523.fly.dev/api/{passport country}/{destination country}</pre>
 
-To GET the visa stats of a country, <pre>https<nolink>://passportvisa-api.herokuapp.com/api/{passport country}</pre>
+To GET the visa stats of a country, <pre>https<nolink>://rough-sun-2523.fly.dev/api/{passport country}</pre>
 
-To GET the list of countries sorted by the visa requirements of a country, <pre>https<nolink>://passportvisa-api.herokuapp.com/list/api/{passport country}</pre>
+<!-- To GET the list of countries sorted by the visa requirements of a country, <pre>https<nolink>://rough-sun-2523.fly.dev/list/api/{passport country}</pre> -->
 
-To GET the list of countries,
+<!-- To GET the list of countries,
 
-<pre>https<nolink>://passportvisa-api.herokuapp.com/countryList</pre>
+<pre>https<nolink>://rough-sun-2523.fly.dev/countryList</pre> -->
 
 where the passport country and destination country are in ISO 2 Country code format. To see all the ISO 2 Country codes, visit [here](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
 
@@ -103,11 +103,11 @@ Passport Country: Hong Kong, Destination Country: United Kingdom
 
 Query:
 
-<pre>https<nolink>://passportvisa-api.herokuapp.com/api/HK/GB</pre>
+<pre>https<nolink>://rough-sun-2523.fly.dev/api/HK/GB</pre>
 
 Result:
 
-<pre>{"passport":"HK","destination":"GB","dur":"180","status":"visa-free","category":"VF","last_updated":"Wed, 08 Sep 2021 17:37:25 GMT","error":{"status":false,"error":""}}</pre>
+<pre>{"passport":"HK","destination":"GB","dur":"180","status":"VF","category":"visa-free","last_updated":"2023-05-30T00:16:18.440137","error":{"status":false,"error":""}}</pre>
 
 ### Get list of countries sorted by visa requirements of a passport
 
@@ -115,11 +115,11 @@ Passport Country: Russia
 
 Query:
 
-<pre>https<nolink>://passportvisa-api.herokuapp.com/list/api/RU</pre>
+<pre>https<nolink>://rough-sun-2523.fly.dev/list/api/RU</pre>
 
 Result:
 
-<pre>{"Passport":"RU","VF":{"data":["AL","AG","AM","AZ","BS","BB","BY","BO","BA","BW","BR","CV","CO","CR","CU","DM","DO","EC","SV","SZ","GM","GE","GD","GT","GY","HT","HN","HK","KZ","KG","MV","MU","MD","MN","ME","MA","NA","NI","MK","PW","PS","PA","PY","PE","QA","KN","LC","WS","ST","RS","ZA","VC","SR","TJ","TH","TT","TN","TR","UA","AE","UY","UZ","VE"],"length":63},"VOA":{"data":["AO","BH","KM","CI","EG","GA","GN","GW","IR","IQ","JM","JO","KE","LB","LS","MG","MW","MR","MX","MZ","NR","NG","OM","RW","SN","SC","SL","SO","LK","TL","TG","TO","TV","ZM","ZW"],"length":35},"VR":{"data":["AF","DZ","AD","AT","BZ","BJ","BT","BG","BF","BI","CF","TD","CN","CG","CD","HR","DJ","GQ","ER","EE","ET","FI","FR","DE","GH","IS","IE","KI","XK","LV","LR","LY","LI","LT","ML","MC","NL","NE","KP","NO","PK","RO","SK","SI","SS","ES","SD","CH","SY","TZ","TM","UG","GB","US","VU","YE"],"length":56},"CB":{"data":["AR","AU","BD","BE","BN","KH","CM","CA","CL","CY","CZ","DK","FJ","GR","HU","IN","ID","IL","IT","JP","KW","LA","LU","MO","MY","MT","MH","FM","MM","NP","NZ","PG","PH","PL","PT","SM","SA","SG","SB","KR","SE","TW","VA","VN"],"length":44},"NA":{"data":null,"length":0},"last_updated":"Thu, 09 Sep 2021 06:49:28 GMT","error":{"status":false,"error":""}}</pre>
+<pre>{"passport":"RU","last_updated":"2023-05-30T00:22:02.975059","vr":{"data":["AF","DZ","AD","AT","BE","BZ","BG","CA","CF","TD","CN","CG","HR","CY","CZ","DK","GQ","ER","EE","FI","FR","DE","GH","GR","GW","HU","IS","IE","IT","JP","KI","XK","KW","LV","LR","LY","LI","LT","LU","ML","MT","MC","NL","NZ","NE","KP","MK","NO","PL","PT","RO","SM","SK","SI","SB","ES","SD","SE","CH","SY","TW","TM","UA","GB","US","VA","YE"],"length":67},"voa":{"data":["AO","BH","BD","BI","KH","KM","CI","EG","ID","IQ","JO","LB","MG","MH","MR","MX","NR","NP","NG","OM","PK","QA","RW","SA","SN","SC","SL","SO","KR","LK","TZ","TL","TG","TO","TV","ZM","ZW"],"length":37},"vf":{"data":["AL","AG","AR","AM","AU","AZ","BS","BB","BY","BJ","BT","BO","BA","BW","BR","BN","BF","CM","CV","CL","CO","CD","CR","CU","DJ","DM","DO","EC","SV","SZ","ET","FJ","GA","GM","GE","GD","GT","GN","GY","HT","HN","HK","IN","IR","IL","JM","KZ","KE","KG","LA","LS","MO","MW","MY","MV","MU","FM","MD","MN","ME","MA","MZ","MM","NA","NI","PW","PS","PA","PG","PY","PE","PH","KN","LC","WS","ST","RS","SG","ZA","SS","VC","SR","TJ","TH","TT","TN","TR","UG","AE","UY","UZ","VU","VE","VN"],"length":94},"cb":{"data":[],"length":0},"na":{"data":[],"length":0},"error":{"status":false,"error":""}}</pre>
 
 ## Category Definition
 
