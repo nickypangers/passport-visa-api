@@ -115,7 +115,7 @@ Passport Country: Russia
 
 Query:
 
-<pre>https<nolink>://rough-sun-2523.fly.dev/list/api/RU</pre>
+<pre>https<nolink>://rough-sun-2523.fly.dev/api/RU</pre>
 
 Result:
 
