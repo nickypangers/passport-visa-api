@@ -57,7 +57,7 @@ class DataRepository {
             break;
           case 'eVisa':
             ev.add(e.code);
-            break;;
+            break;
           default:
             voa.add(e.code);
             break;
