@@ -8,7 +8,7 @@ part 'passport.g.dart';
 @JsonSerializable()
 class Passport extends Equatable {
   final String passport, lastUpdated;
-  final Category vr, voa, vf, cb, na;
+  final Category vr, ev, voa, vf, cb, na;
   final Error error;
 
   Passport({
@@ -17,6 +17,7 @@ class Passport extends Equatable {
     required this.vr,
     required this.voa,
     required this.vf,
+    required this.ev,
     required this.cb,
     required this.na,
     required this.error,
@@ -28,6 +29,7 @@ class Passport extends Equatable {
         vr: Category(),
         voa: Category(),
         vf: Category(),
+        ev: Category(),
         cb: Category(),
         na: Category(),
         error: Error(error: message, status: true),
@@ -40,5 +42,5 @@ class Passport extends Equatable {
 
   @override
   List<Object?> get props =>
-      [passport, lastUpdated, vr, voa, vf, cb, na, error];
+      [passport, lastUpdated, vr, voa, vf, ev, cb, na, error];
 }

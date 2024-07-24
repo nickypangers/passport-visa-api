@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:passport_visa_api/models/models.dart';
-import 'package:passport_visa_api/models/models.dart';
 import 'package:passport_visa_api/service/router_service.dart';
 import 'package:test/test.dart';
 
@@ -69,6 +68,7 @@ void main() {
       var numOfCountries = data.vr.length +
           data.voa.length +
           data.vf.length +
+          data.ev.length +
           data.cb.length +
           data.na.length;
       expect(numOfCountries, 198);
