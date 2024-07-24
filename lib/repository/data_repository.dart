@@ -17,12 +17,14 @@ class DataRepository {
       var status = 'voa';
       switch (data!.text) {
         case 'visa-free':
-        case 'eVisa':
         case 'visa-free (EASE)':
           status = 'vf';
           break;
         case 'visa required':
           status = 'vr';
+          break;
+        case 'eVisa':
+          status = 'ev';
           break;
         default:
           break;
@@ -44,17 +46,19 @@ class DataRepository {
   Future<String> getPassportInfo(String cc) async {
     try {
       var res = await PassportService().getCountryAllData(cc);
-      List<String> vr = [], voa = [], vf = [];
+      List<String> vr = [], voa = [], vf = [], ev = [];
       for (var e in res) {
         switch (e.text) {
           case 'visa-free':
-          case 'eVisa':
           case 'visa-free (EASE)':
             vf.add(e.code);
             break;
           case 'visa required':
             vr.add(e.code);
             break;
+          case 'eVisa':
+            ev.add(e.code);
+            break;;
           default:
             voa.add(e.code);
             break;
@@ -67,6 +71,7 @@ class DataRepository {
           vr: Category(data: vr, length: vr.length),
           voa: Category(data: voa, length: voa.length),
           vf: Category(data: vf, length: vf.length),
+          ev: Category(data: ev, length: ev.length),
           cb: Category(data: [], length: 0),
           na: Category(data: [], length: 0),
           error: Error(error: '', status: false));
