@@ -4,5 +4,4 @@
 coverage/
 build/
 pubspec.lock
-fly.toml
 .dockerignore
