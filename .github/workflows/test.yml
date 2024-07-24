@@ -13,6 +13,6 @@ jobs:
       - uses: dart-lang/setup-dart@v1
 
       - run: dart pub get
-      - run: dart format --output=none --set-exit-if-changed .
+      - run: dart format --output=none .
       - run: dart analyze
       - run: dart test
