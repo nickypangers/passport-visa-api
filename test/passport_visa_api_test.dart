@@ -69,6 +69,7 @@ void main() {
       var numOfCountries = data.vr.length +
           data.voa.length +
           data.vf.length +
+          data.ev.length +
           data.cb.length +
           data.na.length;
       expect(numOfCountries, 198);
