@@ -1,0 +1,28 @@
+{
+  "name": "passport-visa-api",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "introspect": " drizzle-kit introspect --config=drizzle.config.ts",
+    "db:generate": "drizzle-kit generate --config=drizzle.config.ts",
+    "db:drop": "drizzle-kit drop --config=drizzle.config.ts",
+    "db:migrate": "DB_MIGRATING=true bun db/migrate.ts",
+    "db:seed": "DB_SEEDING=true bun db/seed.ts",
+    "db:push": "drizzle-kit push --config=drizzle.config.ts",
+    "studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.4",
+    "@hono/zod-validator": "^0.4.1",
+    "drizzle-orm": "^0.36.0",
+    "hono": "^4.6.8",
+    "pg": "^8.13.1",
+    "postgres": "^3.4.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "drizzle-kit": "^0.27.1",
+    "tsx": "^4.7.1"
+  }
+}
