@@ -1,15 +1,20 @@
-FROM dart:stable as build
-COPY . /passport_visa_api
-WORKDIR /passport_visa_api
-RUN mkdir build
-RUN dart pub get
-RUN dart run test
-RUN dart compile exe ./bin/passport_visa_api.dart -o ./build/dartserve
+# Use an official Node.js runtime as a parent image
+FROM oven/bun:latest AS base
 
+# Set the working directory
+WORKDIR /usr/src/app
 
-FROM scratch
-COPY --from=build /passport_visa_api/build /bin
-COPY --from=build /runtime/ /
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
+# Install dependencies
+RUN bun install
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the port the app runs on
 EXPOSE 8080
-CMD ["dartserve"]
+
+# Define the command to run the app
+CMD ["bun", "dev"]

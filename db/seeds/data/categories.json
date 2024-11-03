@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Visa Free",
+        "code": "VF"
+    },
+    {
+        "name": "Visa On Arrival (including eTA)",
+        "code": "VOA"
+    },
+    {
+        "name": "eVisa",
+        "code": "EV"
+    },
+    {
+        "name": "Visa Required",
+        "code": "VR"
+    },
+    {
+        "name": "No Admission",
+        "code": "NA"
+    }
+]
