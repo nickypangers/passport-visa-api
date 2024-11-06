@@ -11,8 +11,24 @@ app.route('/visa', visaRoute)
 app.doc('/doc', {
   openapi: '3.0.0',
   info: {
-    version: '1.0.0',
+    version: '2.0.0',
     title: 'Passport Visa API',
+    contact: {
+      email: 'nixon@nickypangers.com'
+    },
+    license: {
+      name: 'MIT',
+      url: 'https://opensource.org/licenses/MIT'
+    },
+  },
+  servers: [
+    {
+      url: 'https://rough-sun-2523.fly.dev/'
+    }
+  ],
+  externalDocs: {
+    description: 'Find out more about Passport Visa API',
+    url: 'https://github.com/nickypangers/passport-visa-api'
   }
 })
 

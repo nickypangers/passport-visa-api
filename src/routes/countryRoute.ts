@@ -3,6 +3,7 @@ import { countries } from "$/db/schema";
 import { eq } from "drizzle-orm";
 import generateResponse from "../helpers/responseHelper";
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
+import ErrorSchema from "../schemas/ErrorSchema";
 
 const countryRoute = new OpenAPIHono();
 
@@ -90,7 +91,7 @@ const CountrySchema = z.object({
 
 const getCountryRoute = createRoute({
     method: 'get',
-    path: '/:code',
+    path: '/{code}',
     request: {
         params: ParamsSchema,
     },
@@ -102,6 +103,14 @@ const getCountryRoute = createRoute({
                 }
             },
             description: 'Return country visa information'
+        },
+        500: {
+            content: {
+                'application/json': {
+                    schema: ErrorSchema,
+                }
+            },
+            description: 'Internal server error'
         }
     }
 })
