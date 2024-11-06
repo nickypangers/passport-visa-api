@@ -1,22 +1,117 @@
 import db from "$/db";
 import { countries, visas } from "$/db/schema";
 import { and, eq } from "drizzle-orm";
-import { Hono } from "hono";
 import generateResponse from "../helpers/responseHelper";
-import generateError from "../helpers/errorHelper";
+import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
+import ErrorSchema from "../schemas/ErrorSchema";
 
-const visaRoute = new Hono();
+const visaRoute = new OpenAPIHono();
 
-visaRoute.get("/:pcode/:dcode", async (c) => {
+const ParamsSchema = z.object({
+    pcode: z.string().openapi({
+        param: {
+            name: 'pcode',
+            in: 'path',
+        },
+        example: 'US',
+    }),
+    dcode: z.string().openapi({
+        param: {
+            name: 'dcode',
+            in: 'path',
+        },
+        example: 'CA',
+    }),
+})
+
+const VisaSchema = z.object({
+    id: z.string().openapi({
+        example: "1",
+    }),
+    passport: z.object({
+        name: z.string().openapi({
+            example: "United States",
+        }),
+        code: z.string().openapi({
+            example: "US",
+        }),
+    }).openapi({
+        example: {
+            name: "United States",
+            code: "US",
+        }
+    }),
+    destination: z.object({
+        name: z.string().openapi({
+            example: "Canada",
+        }),
+        code: z.string().openapi({
+            example: "CA",
+        }),
+    }).openapi({
+        example: {
+            name: "Canada",
+            code: "CA",
+        }
+    }),
+    dur: z.number().nullable().openapi({
+        example: 30,
+    }),
+    category: z.object({
+        name: z.string().openapi({
+            example: "Visa Free",
+        }),
+        code: z.string().openapi({
+            example: "VF",
+        }),
+    }).openapi({
+        example: {
+            name: "Visa Free",
+            code: "VF",
+        }
+    }),
+    'last_updated': z.string().openapi({
+        example: "2021-08-01T00:00:00Z",
+    }),
+}).openapi('Visa')
+
+const getVisaRoute = createRoute({
+    method: 'get',
+    path: '/{pcode}/{dcode}',
+    request: {
+        params: ParamsSchema,
+    },
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: VisaSchema,
+                }
+            },
+            description: 'Return visa information'
+        },
+        500: {
+            content: {
+                'application/json': {
+                    schema: ErrorSchema,
+                },
+            },
+            description: 'Bad request'
+        }
+    }
+})
+
+visaRoute.openapi(getVisaRoute, async (c) => {
     const { pcode, dcode } = c.req.param();
 
     try {
         if (!pcode) {
-            return c.json(generateError("Passport ID is required"));
+            
+            throw new Error("Passport ID is required");
         }
 
         if (!dcode) {
-            return c.json(generateError("Destination ID is required"));
+            throw new Error("Destination ID is required");
         }
 
         let passport = await db.query.countries.findFirst({
@@ -24,7 +119,7 @@ visaRoute.get("/:pcode/:dcode", async (c) => {
         })
 
         if (!passport) {
-            return c.json(generateError("Passport not found"));
+            throw new Error("Passport not found");
         }
 
         let destination = await db.query.countries.findFirst({
@@ -32,7 +127,7 @@ visaRoute.get("/:pcode/:dcode", async (c) => {
         })
 
         if (!destination) {
-            return c.json(generateError("Destination not found"));
+            throw new Error("Destination not found");
         }
 
         let visa = await db.query.visas.findFirst({
@@ -64,8 +159,7 @@ visaRoute.get("/:pcode/:dcode", async (c) => {
             },
         }));
     } catch (e) {
-        c.status(500);
-        return c.json(generateError(e));
+        throw e;
     }
 })
 

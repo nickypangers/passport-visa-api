@@ -13,11 +13,13 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.13.4",
+    "@hono/zod-openapi": "^0.16.4",
     "@hono/zod-validator": "^0.4.1",
     "drizzle-orm": "^0.36.0",
     "hono": "^4.6.8",
     "pg": "^8.13.1",
     "postgres": "^3.4.5",
+    "stoker": "^1.3.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
