@@ -2,9 +2,6 @@
 
 name: Fly Deploy
 on:
-  pull_request:
-    branches:
-      - master
   push:
     branches:
       - master

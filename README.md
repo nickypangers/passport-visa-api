@@ -9,6 +9,9 @@ The API retrieves data from a postgresql database which is contributed by the co
 
 Feel free to open an issue for inaccurate data, so that I can update the database
 
+## OpenAPI Docs
+<pre>https<nolink>://rough-sun-2523.fly.io/doc</pre>
+
 ## Instructions
 
 To GET the visa requirement between two countries, <pre>https<nolink>://rough-sun-2523.fly.dev/visa/{passport country}/{destination country}</pre>
