@@ -21,7 +21,7 @@ async function main() {
     }
     await seeds.categories(db);
     await seeds.countries(db);
-    // await seeds.visas(db);
+    await seeds.visas(db);
 
     await connection.end();
 }

@@ -106,7 +106,7 @@ visaRoute.openapi(getVisaRoute, async (c) => {
 
     try {
         if (!pcode) {
-            
+
             throw new Error("Passport ID is required");
         }
 

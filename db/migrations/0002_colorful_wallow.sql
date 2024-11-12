@@ -1,0 +1,1 @@
+ALTER TABLE "visas" DROP COLUMN IF EXISTS "remarks";
