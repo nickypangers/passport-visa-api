@@ -67,7 +67,7 @@ https://github.com/ilyankou/passport-index-dataset (see Dataset Values section)
     "name": String,
     "code": String,
 }
-<pre>
+</pre>
 
 ### Country
 
@@ -134,7 +134,7 @@ Passport Country: Hong Kong
 
 Query:
 
-<pre>https<nolink>://rough-sun-2523.fly.dev/api/HK</pre>
+<pre>https<nolink>://rough-sun-2523.fly.dev/api/GB</pre>
 
 Result:
 
