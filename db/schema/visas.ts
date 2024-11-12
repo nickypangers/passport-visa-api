@@ -1,4 +1,4 @@
-import { integer, pgTable, serial, unique } from "drizzle-orm/pg-core";
+import { integer, pgTable, serial, text, unique } from "drizzle-orm/pg-core";
 import countries from "./countries";
 import { relations } from "drizzle-orm";
 import categories from "./categories";

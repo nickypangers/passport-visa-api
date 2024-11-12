@@ -5,6 +5,7 @@
     "declaration": true,
     "moduleResolution": "Node",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noUnusedLocals": true,

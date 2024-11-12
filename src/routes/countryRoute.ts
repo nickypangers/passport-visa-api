@@ -7,6 +7,18 @@ import ErrorSchema from "../schemas/ErrorSchema";
 
 const countryRoute = new OpenAPIHono();
 
+const SingleCountrySchema = z.object({
+    name: z.string().openapi({
+        example: "Canada",
+    }),
+    code: z.string().openapi({
+        example: "CA",
+    }),
+    duration: z.number().nullable().openapi({
+        example: 30,
+    }),
+});
+
 const ParamsSchema = z.object({
     code: z.string().openapi({
         param: {
@@ -24,64 +36,29 @@ const CountrySchema = z.object({
     code: z.string().openapi({
         example: "US",
     }),
-    VR: z.array(z.object({
-        name: z.string().openapi({
-            example: "Canada",
-        }),
-        code: z.string().openapi({
-            example: "CA",
-        }),
-    })).openapi({
+    VR: z.array(SingleCountrySchema).openapi({
         example: [
-            { name: "Canada", code: "CA" }
+            { name: "Canada", code: "CA", duration: 30 }
         ]
     }),
-    VOA: z.array(z.object({
-        name: z.string().openapi({
-            example: "India",
-        }),
-        code: z.string().openapi({
-            example: "IN",
-        }),
-    })).openapi({
+    VOA: z.array(SingleCountrySchema).openapi({
         example: [
-            { name: "India", code: "IN" }
+            { name: "India", code: "IN", duration: 30 }
         ]
     }),
-    VF: z.array(z.object({
-        name: z.string().openapi({
-            example: "Australia",
-        }),
-        code: z.string().openapi({
-            example: "AU",
-        }),
-    })).openapi({
+    VF: z.array(SingleCountrySchema).openapi({
         example: [
-            { name: "Australia", code: "AU" }
+            { name: "Australia", code: "AU", duration: 30 }
         ]
     }),
-    EV: z.array(z.object({
-        name: z.string().openapi({
-            example: "China",
-        }),
-        code: z.string().openapi({
-            example: "CN",
-        }),
-    })).openapi({
+    EV: z.array(SingleCountrySchema).openapi({
         example: [
-            { name: "China", code: "CN" }
+            { name: "China", code: "CN", duration: 30 }
         ]
     }),
-    NA: z.array(z.object({
-        name: z.string().openapi({
-            example: "Brazil",
-        }),
-        code: z.string().openapi({
-            example: "BR",
-        }),
-    })).openapi({
+    NA: z.array(SingleCountrySchema).openapi({
         example: [
-            { name: "Brazil", code: "BR" }
+            { name: "Brazil", code: "BR", duration: 30 }
         ]
     }),
     'last_updated': z.string().openapi({
@@ -137,11 +114,11 @@ countryRoute.openapi(getCountryRoute, async (c) => {
     let response = {
         name: country?.name,
         code: country?.code,
-        "VR": country?.visas?.filter((v) => v.category.code === "VR").map((v) => ({ name: v.destination.name, code: v.destination.code })),
-        "VOA": country?.visas?.filter((v) => v.category.code === "VOA").map((v) => ({ name: v.destination.name, code: v.destination.code })),
-        "VF": country?.visas?.filter((v) => v.category.code === "VF").map((v) => ({ name: v.destination.name, code: v.destination.code })),
-        "EV": country?.visas?.filter((v) => v.category.code === "EV").map((v) => ({ name: v.destination.name, code: v.destination.code })),
-        "NA": country?.visas?.filter((v) => v.category.code === "NA").map((v) => ({ name: v.destination.name, code: v.destination.code })),
+        "VR": country?.visas?.filter((v) => v.category.code === "VR").map((v) => ({ name: v.destination.name, code: v.destination.code, duration: v.duration })),
+        "VOA": country?.visas?.filter((v) => v.category.code === "VOA").map((v) => ({ name: v.destination.name, code: v.destination.code, duration: v.duration })),
+        "VF": country?.visas?.filter((v) => v.category.code === "VF").map((v) => ({ name: v.destination.name, code: v.destination.code, duration: v.duration })),
+        "EV": country?.visas?.filter((v) => v.category.code === "EV").map((v) => ({ name: v.destination.name, code: v.destination.code, duration: v.duration })),
+        "NA": country?.visas?.filter((v) => v.category.code === "NA").map((v) => ({ name: v.destination.name, code: v.destination.code, duration: v.duration })),
     }
 
     return c.json(generateResponse(response), 200);
