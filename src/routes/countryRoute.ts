@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import generateResponse from "../helpers/responseHelper";
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import ErrorSchema from "../schemas/ErrorSchema";
+import {cors} from 'hono/cors';
 
 const countryRoute = new OpenAPIHono();
 
