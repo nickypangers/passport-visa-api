@@ -2,8 +2,11 @@ import { onError } from 'stoker/middlewares'
 import countryRoute from './routes/countryRoute'
 import visaRoute from './routes/visaRoute'
 import { OpenAPIHono } from '@hono/zod-openapi'
+import { cors } from 'hono/cors'
 
 const app = new OpenAPIHono()
+
+app.use('*', cors())
 
 app.route('/country', countryRoute)
 app.route('/visa', visaRoute)
