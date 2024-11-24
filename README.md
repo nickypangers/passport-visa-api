@@ -130,11 +130,11 @@ Result:
 
 ### Get list of countries sorted by visa requirements of a passport
 
-Passport Country: Hong Kong
+Passport Country: United Kingdom
 
 Query:
 
-<pre>https<nolink>://rough-sun-2523.fly.dev/api/GB</pre>
+<pre>https<nolink>://rough-sun-2523.fly.dev/country/GB</pre>
 
 Result:
 
