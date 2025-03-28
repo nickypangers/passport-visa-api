@@ -1,28 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "es2022",
-    "module": "commonjs",
-    "declaration": true,
-    "moduleResolution": "Node",
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "types": [
-      "node",
-    ],
-    "rootDir": ".",
-    "outDir": "./dist",
-    "paths": {
-      "$/*": [
-        "./*"
-      ]
-    }
-  },
-  "include": [
-    "src/**/*.ts",
-    "test/**/*.ts"
-  ],
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json"
 }

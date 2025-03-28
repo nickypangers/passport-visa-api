@@ -1,1 +1,0 @@
-ALTER TABLE "visas" ADD COLUMN "remarks" text;
