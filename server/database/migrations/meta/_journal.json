@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1754333154010,
+      "tag": "0000_kind_thor_girl",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1754377680459,
+      "tag": "0001_smart_virginia_dare",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1754383810604,
+      "tag": "0002_luxuriant_tattoo",
+      "breakpoints": true
+    }
+  ]
+}
