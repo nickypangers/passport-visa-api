@@ -1,10 +1,10 @@
 import { sql } from 'drizzle-orm';
-import type { CountryBody, CountryResponse } from '~~/shared/utils/validator';
+import type { CountryResponse } from '~~/shared/utils/validator';
 import { CountryBodySchema } from '~~/shared/utils/validator';
 
 export default defineEventHandler(async (event): Promise<CountryResponse> => {
-  const body = await readBody<CountryBody>(event);
-  const { country } = CountryBodySchema.parse(body);
+
+  const { country } = await readValidatedBody(event, CountryBodySchema.parse)
 
   // Optimized single query with explicit JOINs
   const result = await db.execute(sql`

@@ -11,7 +11,7 @@ const connection = postgres({
   password: process.env.POSTGRES_PASSWORD!,
   database: process.env.POSTGRES_DB!,
   max: process.env.DB_MIGRATING || process.env.DB_SEEDING ? 1 : undefined,
-  onnotice: process.env.DB_SEEDING ? () => {} : undefined,
+  onnotice: process.env.DB_SEEDING ? () => { } : undefined,
 });
 
 export const db = drizzle(connection, {
@@ -22,3 +22,7 @@ export const db = drizzle(connection, {
 export type Country = typeof schema.countries.$inferSelect;
 export type Category = typeof schema.categories.$inferSelect;
 export type Visa = typeof schema.visas.$inferSelect;
+export type User = typeof schema.users.$inferSelect;
+export type Provider = typeof schema.providers.$inferSelect;
+export type OAuthAccount = typeof schema.oauthAccounts.$inferSelect;
+export type SubscriptionTier = typeof schema.subscriptionTiers.$inferSelect;

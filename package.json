@@ -30,6 +30,7 @@
     "drizzle-orm": "^0.44.4",
     "eslint": "^9.32.0",
     "nuxt": "^4.0.1",
+    "nuxt-auth-utils": "^0.5.23",
     "pg": "^8.16.3",
     "pinia": "^3.0.3",
     "postgres": "^3.4.7",
@@ -38,6 +39,7 @@
     "zod": "^4.0.14"
   },
   "devDependencies": {
+    "@iconify-json/mdi": "^1.2.3",
     "@prettier/plugin-pug": "^3.4.0",
     "@types/pg": "^8.15.5",
     "drizzle-kit": "^0.31.4",
