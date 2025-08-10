@@ -101,7 +101,7 @@
 </template>
 <script setup lang="ts">
 
-import type { CountryResponse } from '~~/shared/utils/validator';
+import type { CountryResponse } from "~~/shared/utils/validator";
 
 const appStore = useAppStore();
 
@@ -126,22 +126,22 @@ function getVisaCellData(sourceIndex: number, destinationId: number) {
 
 function getCellClass(sourceIndex: number, destinationId: number) {
   const visaData = getVisaCellData(sourceIndex, destinationId);
-  if (!visaData) return '';
+  if (!visaData) return "";
 
   const categoryCode = visaData.category.code.toLowerCase();
 
   // Style based on common visa category codes
   switch (categoryCode) {
-    case 'vf':
-      return 'bg-green-100 border-green-300 text-green-800';
-    case 'vr':
-      return 'bg-red-100 border-red-300 text-red-800';
-    case 'voa':
-    case 'evisa':
-    case 'eta':
-      return 'bg-yellow-100 border-yellow-300 text-yellow-800';
+    case "vf":
+      return "bg-green-100 border-green-300 text-green-800";
+    case "vr":
+      return "bg-red-100 border-red-300 text-red-800";
+    case "voa":
+    case "evisa":
+    case "eta":
+      return "bg-yellow-100 border-yellow-300 text-yellow-800";
     default:
-      return 'bg-gray-100 border-gray-300 text-gray-800';
+      return "bg-gray-100 border-gray-300 text-gray-800";
   }
 }
 
@@ -166,8 +166,8 @@ onMounted(async () => {
 async function fetchVisaResult(sourceId: number | null) {
   if (sourceId === null) return null;
 
-  const result = await $fetch('/api/countries', {
-    method: 'POST',
+  const result = await $fetch("/api/countries", {
+    method: "POST",
     body: { country: sourceId },
   });
 

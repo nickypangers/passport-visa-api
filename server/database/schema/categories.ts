@@ -1,13 +1,13 @@
-import { index, pgTable, serial, text } from 'drizzle-orm/pg-core';
+import { index, pgTable, serial, text } from "drizzle-orm/pg-core";
 
 const categories = pgTable(
-  'categories',
+  "categories",
   {
-    id: serial('id').primaryKey(),
-    name: text('name').unique().notNull(),
-    code: text('code').unique().notNull(),
+    id: serial("id").primaryKey(),
+    name: text("name").unique().notNull(),
+    code: text("code").unique().notNull(),
   },
-  (table) => [index('idx_categories_id').on(table.id)]
+  (table) => [index("idx_categories_id").on(table.id)]
 );
 
 export default categories;

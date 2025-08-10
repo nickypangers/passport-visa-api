@@ -1,14 +1,14 @@
-import { defineStore } from 'pinia';
-import type { Country } from '@@/server/utils/drizzle';
+import { defineStore } from "pinia";
+import type { Country } from "@@/server/utils/drizzle";
 
-export const useAppStore = defineStore('appStore', {
+export const useAppStore = defineStore("appStore", {
   state: () => ({
     countries: [] as Country[],
   }),
   actions: {
     async fetchCountries() {
-      const { data, status, error } = await useFetch<Country[]>('/api/countries');
-      if (status.value !== 'success') {
+      const { data, status, error } = await useFetch<Country[]>("/api/countries");
+      if (status.value !== "success") {
         console.log(error.value);
       }
       if (!data.value) return;

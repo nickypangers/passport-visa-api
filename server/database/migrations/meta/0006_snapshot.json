@@ -1,6 +1,6 @@
 {
-  "id": "8a0d1f36-f571-4bea-aa72-4ce5841af6cf",
-  "prevId": "9f55cdcb-c442-48de-b6cd-2e39805aae85",
+  "id": "afd431a1-d045-4d7d-bb83-82a6febffa0d",
+  "prevId": "83aad0d9-3542-4b9a-8610-46702d6c1078",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -240,11 +240,23 @@
           "notNull": false,
           "default": "'{}'::text[]"
         },
-        "price": {
-          "name": "price",
+        "monthly_price": {
+          "name": "monthly_price",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
+        },
+        "yearly_price": {
+          "name": "yearly_price",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stripe_price_id": {
+          "name": "stripe_price_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",

@@ -1,6 +1,6 @@
-import { sql } from 'drizzle-orm';
-import type { CountryResponse } from '~~/shared/utils/validator';
-import { CountryBodySchema } from '~~/shared/utils/validator';
+import { sql } from "drizzle-orm";
+import type { CountryResponse } from "~~/shared/utils/validator";
+import { CountryBodySchema } from "~~/shared/utils/validator";
 
 export default defineEventHandler(async (event): Promise<CountryResponse> => {
 
@@ -39,7 +39,7 @@ export default defineEventHandler(async (event): Promise<CountryResponse> => {
   if (rows.length === 0) {
     throw createError({
       statusCode: 404,
-      statusMessage: 'Country not found',
+      statusMessage: "Country not found",
     });
   }
 

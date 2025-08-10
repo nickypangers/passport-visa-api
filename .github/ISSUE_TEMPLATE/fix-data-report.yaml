@@ -1,0 +1,68 @@
+name: Fix Data Report
+description: File a fix data report.
+title: '[Fix-Data]: '
+labels: ['fix-data']
+assignees:
+  - nickypangers
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this fix data report!
+  - type: input
+    id: visa-id
+    attributes:
+      label: Visa ID
+      description: Please enter the visa ID
+      placeholder: e.g. 24431
+    validations:
+      required: true
+  - type: dropdown
+    id: current-data
+    attributes:
+      label: Current Visa Status
+      description: Current visa status
+      options:
+        - 1. Visa Free
+        - 2. Visa On Arrival (including eTA)
+        - 3. eVisa
+        - 4. Visa Required
+        - 5. No Admission
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: new-data
+    attributes:
+      label: Correct Visa Status
+      description: Correct visa status
+      options:
+        - 1. Visa Free
+        - 2. Visa On Arrival (including eTA)
+        - 3. eVisa
+        - 4. Visa Required
+        - 5. No Admission
+      default: 1
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: Please provide source to support your new provided data
+    validations:
+      required: true
+  - type: textarea
+    id: current-output-json
+    attributes:
+      label: Paste Current Output JSON
+      description: Please copy and paste the current output JSON
+      render: shell
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree that the new data provided are correct.
+      options:
+        - label: I agree that the new data provided are correct.
+          required: true

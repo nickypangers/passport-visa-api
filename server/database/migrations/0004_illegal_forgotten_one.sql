@@ -1,2 +1,0 @@
-ALTER TABLE "oauth_accounts" DROP CONSTRAINT "oauth_accounts_user_id_provider_id_provider_user_id_unique";--> statement-breakpoint
-ALTER TABLE "oauth_accounts" ADD CONSTRAINT "unique_user_oauth" UNIQUE("user_id");

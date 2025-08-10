@@ -1,0 +1,1 @@
+ALTER TABLE "subscription_tiers" ADD COLUMN "stripe_price_id" text;

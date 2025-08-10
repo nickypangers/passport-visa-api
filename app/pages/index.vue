@@ -271,7 +271,7 @@
 </template>
 
 <script setup lang="ts">
-  import type { VisaResponse } from '@@/shared/utils/validator';
+  import type { VisaResponse } from "@@/shared/utils/validator";
 
   const appStore = useAppStore();
   const countries = computed(() => appStore.countries);
@@ -287,13 +287,13 @@
   const getVisaColorScheme = computed(() => {
     if (!result.value?.category) {
       return {
-        containerBg: 'bg-gray-50',
-        containerBorder: 'border-gray-200',
-        iconBg: 'bg-gray-500',
-        textTitle: 'text-gray-900',
-        textContent: 'text-gray-700',
-        cardBorder: 'border-gray-100',
-        cardTitle: 'text-gray-800',
+        containerBg: "bg-gray-50",
+        containerBorder: "border-gray-200",
+        iconBg: "bg-gray-500",
+        textTitle: "text-gray-900",
+        textContent: "text-gray-700",
+        cardBorder: "border-gray-100",
+        cardTitle: "text-gray-800",
       };
     }
 
@@ -302,51 +302,51 @@
 
     // Check if visa is required (red)
     if (
-      categoryName.includes('required') ||
-      categoryName.includes('visa required') ||
-      categoryCode.includes('req') ||
-      categoryCode === 'vr'
+      categoryName.includes("required") ||
+      categoryName.includes("visa required") ||
+      categoryCode.includes("req") ||
+      categoryCode === "vr"
     ) {
       return {
-        containerBg: 'bg-red-50',
-        containerBorder: 'border-red-200',
-        iconBg: 'bg-red-500',
-        textTitle: 'text-red-900',
-        textContent: 'text-red-800',
-        cardBorder: 'border-red-100',
-        cardTitle: 'text-red-800',
+        containerBg: "bg-red-50",
+        containerBorder: "border-red-200",
+        iconBg: "bg-red-500",
+        textTitle: "text-red-900",
+        textContent: "text-red-800",
+        cardBorder: "border-red-100",
+        cardTitle: "text-red-800",
       };
     }
 
     // Check if visa is free (green)
     if (
-      categoryName.includes('free') ||
-      categoryName.includes('visa free') ||
-      categoryName.includes('no visa') ||
-      categoryCode.includes('free') ||
-      categoryCode === 'vf' ||
-      categoryCode === 'nv'
+      categoryName.includes("free") ||
+      categoryName.includes("visa free") ||
+      categoryName.includes("no visa") ||
+      categoryCode.includes("free") ||
+      categoryCode === "vf" ||
+      categoryCode === "nv"
     ) {
       return {
-        containerBg: 'bg-green-50',
-        containerBorder: 'border-green-200',
-        iconBg: 'bg-green-500',
-        textTitle: 'text-green-900',
-        textContent: 'text-green-800',
-        cardBorder: 'border-green-100',
-        cardTitle: 'text-green-800',
+        containerBg: "bg-green-50",
+        containerBorder: "border-green-200",
+        iconBg: "bg-green-500",
+        textTitle: "text-green-900",
+        textContent: "text-green-800",
+        cardBorder: "border-green-100",
+        cardTitle: "text-green-800",
       };
     }
 
     // Default for other categories (orange)
     return {
-      containerBg: 'bg-orange-50',
-      containerBorder: 'border-orange-200',
-      iconBg: 'bg-orange-500',
-      textTitle: 'text-orange-900',
-      textContent: 'text-orange-800',
-      cardBorder: 'border-orange-100',
-      cardTitle: 'text-orange-800',
+      containerBg: "bg-orange-50",
+      containerBorder: "border-orange-200",
+      iconBg: "bg-orange-500",
+      textTitle: "text-orange-900",
+      textContent: "text-orange-800",
+      cardBorder: "border-orange-100",
+      cardTitle: "text-orange-800",
     };
   });
 
@@ -359,8 +359,8 @@
     error.value = null;
 
     try {
-      const response = await $fetch<VisaResponse>('/api/visas', {
-        method: 'POST',
+      const response = await $fetch<VisaResponse>("/api/visas", {
+        method: "POST",
         body: {
           passport: passportCountryId.value,
           destination: destinationCountryId.value,
@@ -369,8 +369,8 @@
 
       result.value = response;
     } catch (err) {
-      error.value = 'Failed to fetch visa requirements. Please try again.';
-      console.error('Visa API error:', err);
+      error.value = "Failed to fetch visa requirements. Please try again.";
+      console.error("Visa API error:", err);
     } finally {
       loading.value = false;
     }

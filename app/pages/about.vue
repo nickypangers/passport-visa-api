@@ -1,7 +1,6 @@
 <template>
   <div
-    class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex flex-col items-center justify-center p-4"
-  >
+    class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex flex-col items-center justify-center p-4">
     <!-- Header -->
     <div class="text-center mb-8">
       <h1 class="text-4xl font-bold text-gray-800 mb-2">About</h1>
@@ -25,34 +24,24 @@
           <li>• Modern, responsive design</li>
         </ul>
 
-        <h3 class="text-xl font-semibold text-gray-800 mb-3">Technology Stack</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-600">
-          <div class="bg-gray-50 rounded-lg p-3 text-center">
-            <div class="font-semibold">Frontend</div>
-            <div class="text-sm">Nuxt 3 + Vue 3</div>
-          </div>
-          <div class="bg-gray-50 rounded-lg p-3 text-center">
-            <div class="font-semibold">Styling</div>
-            <div class="text-sm">Tailwind CSS</div>
-          </div>
-          <div class="bg-gray-50 rounded-lg p-3 text-center">
-            <div class="font-semibold">Database</div>
-            <div class="text-sm">Drizzle ORM</div>
-          </div>
-        </div>
+        <a href="https://github.com/nickypangers/passport-visa-api" target="_blank"
+          class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 hover:bg-white/30 rounded-lg transition-all duration-200 group">
+          <Icon name="mdi:github" class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-200" />
+          GitHub Repo
+        </a>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  useHead({
-    title: 'About - Passport Visa API',
-    meta: [
-      {
-        name: 'description',
-        content: 'Learn more about the Passport Visa API project and its features',
-      },
-    ],
-  });
+useHead({
+  title: "About - Passport Visa API",
+  meta: [
+    {
+      name: "description",
+      content: "Learn more about the Passport Visa API project and its features",
+    },
+  ],
+});
 </script>

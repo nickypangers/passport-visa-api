@@ -8,10 +8,10 @@ const bodySchema = z.object({
 export default defineEventHandler(async (event) => {
     const { email, password } = await readValidatedBody(event, bodySchema.parse);
 
-    if (email === 'admin@admin.com' && password === 'iamtheadmin') {
+    if (email === "admin@admin.com" && password === "iamtheadmin") {
         await setUserSession(event, {
             user: {
-                name: 'John Doe',
+                name: "John Doe",
             }
         });
         return {}
@@ -19,6 +19,6 @@ export default defineEventHandler(async (event) => {
 
     throw createError({
         statusCode: 401,
-        statusMessage: 'Invalid credentials',
+        statusMessage: "Invalid credentials",
     });
 });

@@ -1,6 +1,6 @@
 {
-  "id": "8a0d1f36-f571-4bea-aa72-4ce5841af6cf",
-  "prevId": "9f55cdcb-c442-48de-b6cd-2e39805aae85",
+  "id": "e89c3d6e-56f6-4bb9-802b-6d3ab5650756",
+  "prevId": "afd431a1-d045-4d7d-bb83-82a6febffa0d",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -244,7 +244,13 @@
           "name": "price",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
+        },
+        "stripe_price_id": {
+          "name": "stripe_price_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",

@@ -26,18 +26,18 @@
 
 const { fetch: refreshSession } = useUserSession();
 const credentials = reactive({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
 });
 
 async function login() {
     $fetch("/api/login", {
-        method: 'POST',
+        method: "POST",
         body: credentials,
     }).then(async () => {
         await refreshSession();
-        await navigateTo('/');
-    }).catch(() => alert('Invalid credentials'));
+        await navigateTo("/");
+    }).catch(() => alert("Invalid credentials"));
 }
 
 </script>

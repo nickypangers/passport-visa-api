@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --dotenv .env.local",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -34,6 +34,7 @@
     "pg": "^8.16.3",
     "pinia": "^3.0.3",
     "postgres": "^3.4.7",
+    "stripe": "^18.4.0",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1",
     "zod": "^4.0.14"

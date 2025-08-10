@@ -8,5 +8,5 @@
 
 <script setup>
   const appStore = useAppStore();
-  await callOnce('countries', () => appStore.fetchCountries());
+  await callOnce("countries", () => appStore.fetchCountries());
 </script>

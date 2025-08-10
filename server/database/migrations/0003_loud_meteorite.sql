@@ -1,0 +1,1 @@
+ALTER TABLE "subscription_tiers" ALTER COLUMN "features" SET DEFAULT '{}'::text[];

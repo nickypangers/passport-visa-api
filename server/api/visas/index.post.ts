@@ -1,5 +1,5 @@
-import { VisaBodySchema, type VisaResponse } from '@@/shared/utils/validator';
-import { and, eq } from 'drizzle-orm';
+import { VisaBodySchema, type VisaResponse } from "@@/shared/utils/validator";
+import { and, eq } from "drizzle-orm";
 
 export default defineEventHandler(async (event): Promise<VisaResponse> => {
 
