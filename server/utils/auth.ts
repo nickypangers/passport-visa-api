@@ -5,7 +5,7 @@ import crypto from "node:crypto";
 import { db, tables } from "./drizzle";
 import { createAppError } from "../../shared/utils/errors";
 
-export async function isUserTokenValid(event: H3Event) {
+export async function isUserTokenValid(event: H3Event, isAddUsage: boolean = false) {
     const authHeader = getHeader(event, "Authorization");
     if (!authHeader) {
         throw createAppError({ statusCode: 401, message: "Unauthorized" });
@@ -66,12 +66,16 @@ export async function isUserTokenValid(event: H3Event) {
         throw createAppError({ statusCode: 401, message: "Unauthorized" });
     }
 
-    // Use default monthly request limit if no subscription tier is found
-    const monthlyRequestLimit = result.monthlyRequestLimit || 100; // Default to 100 requests
+    if (isAddUsage) {
+        // Use default monthly request limit if no subscription tier is found
+        const monthlyRequestLimit = result.monthlyRequestLimit || 100; // Default to 100 requests
 
-    // Atomic daily counter increment (aggregate across endpoints, shard 0)
-    const periodDay = new Date().toISOString().slice(0, 10);
-    await db.execute(sql`
+        // Atomic daily counter increment (aggregate across endpoints, shard 0)
+        const now = new Date();
+        const periodDay = now.getFullYear() + "-" +
+            String(now.getMonth() + 1).padStart(2, "0") + "-" +
+            String(now.getDate()).padStart(2, "0");
+        await db.execute(sql`
         INSERT INTO api_usage_counters (user_id, api_key_id, period_day, endpoint, shard, count, api_key_id_bucket, endpoint_bucket)
         VALUES (${userId}, ${result.apiKeyId}, ${periodDay}, '', 0, 1, ${result.apiKeyId || 0}, '')
         ON CONFLICT (user_id, api_key_id_bucket, period_day, endpoint_bucket, shard)
@@ -79,7 +83,9 @@ export async function isUserTokenValid(event: H3Event) {
         WHERE api_usage_counters.count < ${monthlyRequestLimit}
         RETURNING count
     `);
+    }
 
+    return { id: result.userId };
 }
 
 function hashToken(token: string) {
