@@ -54,37 +54,46 @@
                 </div>
 
                 <div class="flex items-center">
-                    <div v-if="loggedIn" class="relative group">
-                        <button
-                            class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-white/40 rounded-lg transition-all duration-200">
-                            <Icon name="mdi:account-circle" class="w-5 h-5 text-gray-600" />
-                            <span>{{ userLabel }}</span>
-                            <Icon name="mdi:chevron-down" class="w-4 h-4 text-gray-500" />
-                        </button>
-                        <div
-                            class="absolute right-0 top-full z-50 w-44 bg-white border border-gray-100 rounded-xl shadow-lg py-1 opacity-0 translate-y-1 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto focus-within:opacity-100 focus-within:translate-y-0 transition-all duration-150">
-                            <NuxtLink to="/profile"
-                                class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                <Icon name="mdi:account" class="w-4 h-4" />
-                                Profile
-                            </NuxtLink>
+                    <AuthState v-slot="{ loggedIn, clear }">
+                        <div v-if="loggedIn" class="relative group">
                             <button
-                                class="w-full flex items-center gap-2 px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50"
-                                @click="logout">
-                                <Icon name="mdi:logout" class="w-4 h-4" />
-                                Logout
+                                class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-white/40 rounded-lg transition-all duration-200">
+                                <Icon name="mdi:account-circle" class="w-5 h-5 text-gray-600" />
+                                <span>{{ userLabel }}</span>
+                                <Icon name="mdi:chevron-down" class="w-4 h-4 text-gray-500" />
+                            </button>
+                            <div
+                                class="absolute right-0 top-full z-50 w-44 bg-white border border-gray-100 rounded-xl shadow-lg py-1 opacity-0 translate-y-1 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto focus-within:opacity-100 focus-within:translate-y-0 transition-all duration-150">
+                                <NuxtLink to="/profile"
+                                    class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                    <Icon name="mdi:account" class="w-4 h-4" />
+                                    Profile
+                                </NuxtLink>
+                                <NuxtLink to="/profile/tokens"
+                                    class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                    <Icon name="mdi:key-variant" class="w-4 h-4" />
+                                    API Tokens
+                                </NuxtLink>
+                                <button
+                                    class="w-full flex items-center gap-2 px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50"
+                                    @click="handleLogout(clear)">
+                                    <Icon name="mdi:logout" class="w-4 h-4" />
+                                    Logout
+                                </button>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <button
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 hover:bg-white/30 rounded-lg transition-all duration-200 group"
+                                @click="openInPopup('/api/auth/github')">
+                                <Icon name="mdi:github"
+                                    class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-200" />
+                                Sign in with GitHub
                             </button>
                         </div>
-                    </div>
-                    <div v-else>
-                        <button
-                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 hover:bg-white/30 rounded-lg transition-all duration-200 group"
-                            @click="login">
-                            <Icon name="mdi:github"
-                                class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-200" />
-                            Sign in with GitHub
-                        </button>
-                    </div>
+                    </AuthState>
+
+
                 </div>
             </div>
         </div>
@@ -95,9 +104,9 @@
 
 defineComponent({
     name: "HeaderComponent",
-})
+});
 
-const { user, loggedIn, clear } = useUserSession();
+const { user, openInPopup } = useUserSession();
 
 type SessionUser = {
     name?: string
@@ -106,16 +115,30 @@ type SessionUser = {
 }
 
 const userLabel = computed(() => {
-    const u = user.value as SessionUser | null
-    return u?.name ?? u?.login ?? u?.email ?? "Account"
+    const u = user.value as SessionUser | null;
+    return u?.name ?? u?.login ?? u?.email ?? "Account";
 });
 
-function login() {
-    navigateTo("/api/auth/github")
+const route = useRoute();
+
+function isRouteProtectedByAuth(): boolean {
+    const middleware = route.meta?.middleware as unknown;
+    if (!middleware) return false;
+
+    if (Array.isArray(middleware)) {
+        return (middleware as string[]).includes("auth");
+    }
+
+    if (typeof middleware === "string") return middleware === "auth";
+
+    return false;
 }
 
-function logout() {
-    clear();
+async function handleLogout(clearFn: () => unknown | Promise<unknown>) {
+    await Promise.resolve(clearFn());
+    if (isRouteProtectedByAuth()) {
+        await navigateTo("/");
+    }
 }
 
 </script>

@@ -1,10 +1,13 @@
 import { sql } from "drizzle-orm";
-import type { CountryResponse } from "~~/shared/utils/validator";
-import { CountryBodySchema } from "~~/shared/utils/validator";
+import type { CountryResponse } from "#shared/utils/validator";
+import { CountryBodySchema } from "#shared/utils/validator";
+import { createAppError } from "#shared/utils/errors";
+import { isUserTokenValid } from "../../utils/auth";
 
 export default defineEventHandler(async (event): Promise<CountryResponse> => {
+  await isUserTokenValid(event);
 
-  const { country } = await readValidatedBody(event, CountryBodySchema.parse)
+  const { country } = await readValidatedBody(event, CountryBodySchema.parse);
 
   // Optimized single query with explicit JOINs
   const result = await db.execute(sql`
@@ -37,9 +40,9 @@ export default defineEventHandler(async (event): Promise<CountryResponse> => {
   }>;
 
   if (rows.length === 0) {
-    throw createError({
+    throw createAppError({
       statusCode: 404,
-      statusMessage: "Country not found",
+      message: "Country not found",
     });
   }
 

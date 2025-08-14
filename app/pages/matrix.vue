@@ -101,7 +101,7 @@
 </template>
 <script setup lang="ts">
 
-import type { CountryResponse } from "~~/shared/utils/validator";
+import type { CountryResponse } from "#shared/utils/validator";
 
 const appStore = useAppStore();
 

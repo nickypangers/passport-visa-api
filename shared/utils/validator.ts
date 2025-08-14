@@ -53,11 +53,28 @@ export interface VisaResponse {
 
 export const SubscriptionTierBodySchema = z.object({
   name: z.string().min(1),
-  sku: z.string().min(1),
   description: z.string().min(1),
-  price: z.number().min(0).optional(),
-  stripePriceId: z.string().min(1).optional(),
+  monthlySku: z.string().min(1).optional(),
+  yearlySku: z.string().min(1).optional(),
+  monthlyPrice: z.number().min(0).optional(),
+  yearlyPrice: z.number().min(0).optional(),
+  monthlyStripePriceId: z.string().min(1).optional(),
+  yearlyStripePriceId: z.string().min(1).optional(),
+  monthlyRequestLimit: z.number().min(0).optional(),
   features: z.array(z.string()).default([]),
 });
 
 export type SubscriptionTierBody = z.infer<typeof SubscriptionTierBodySchema>;
+
+export const RoleBodySchema = z.object({
+  name: z.string().min(1),
+});
+
+export type RoleBody = z.infer<typeof RoleBodySchema>;
+
+// API Keys / Tokens
+export const ApiKeyBodySchema = z.object({
+  name: z.string().min(1, "Token name is required"),
+});
+
+export type ApiKeyBody = z.infer<typeof ApiKeyBodySchema>;

@@ -13,5 +13,6 @@ export default withNuxt({
     "vue/html-indent": "off",
     "vue/html-quotes": "off",
     quotes: ["error", "double"],
+    semi: ["error", "always"],
   },
 });

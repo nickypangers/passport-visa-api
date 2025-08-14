@@ -1,0 +1,2 @@
+ALTER TABLE "api_usage_counters" DROP CONSTRAINT "api_usage_counters_user_id_api_key_id_period_day_endpoint_shard_pk";--> statement-breakpoint
+ALTER TABLE "api_usage_counters" ADD CONSTRAINT "api_usage_counters_user_id_api_key_id_bucket_period_day_endpoint_bucket_shard_pk" PRIMARY KEY("user_id","api_key_id_bucket","period_day","endpoint_bucket","shard");

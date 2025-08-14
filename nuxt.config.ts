@@ -12,6 +12,9 @@ export default defineNuxtConfig({
   pinia: {
     storesDirs: ["./app/stores/**"],
   },
+  typescript: {
+    tsConfig: {}
+  },
   runtimeConfig: {
     db_host: process.env.POSTGRES_HOST,
     db_port: process.env.POSTGRES_PORT,
@@ -20,5 +23,11 @@ export default defineNuxtConfig({
     db_database: process.env.POSTGRES_DB,
     stripe_public_key: process.env.STRIPE_PUBLISHABLE_KEY,
     stripe_secret_key: process.env.STRIPE_SECRET_KEY,
+    oauth: {
+      github: {
+        clientId: process.env.NUXT_OAUTH_GITHUB_CLIENT_ID,
+        clientSecret: process.env.NUXT_OAUTH_GITHUB_CLIENT_SECRET,
+      }
+    },
   },
 });

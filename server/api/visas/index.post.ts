@@ -1,9 +1,11 @@
 import { VisaBodySchema, type VisaResponse } from "@@/shared/utils/validator";
 import { and, eq } from "drizzle-orm";
+import { isUserTokenValid } from "~~/server/utils/auth";
 
 export default defineEventHandler(async (event): Promise<VisaResponse> => {
+ await isUserTokenValid(event);
 
-  const { passport, destination } = await readValidatedBody(event, VisaBodySchema.parse)
+  const { passport, destination } = await readValidatedBody(event, VisaBodySchema.parse);
 
   const visa = await db.query.visas.findFirst({
     where: and(eq(tables.visas.passportId, passport), eq(tables.visas.destinationId, destination)),

@@ -27,12 +27,12 @@
 </template>
 
 <script setup lang="ts">
-defineComponent({ name: "OrderSuccessPage" })
+defineComponent({ name: "OrderSuccessPage" });
 
 useHead({
     title: "Order Success - Passport Visa API",
-})
+});
 
-const route = useRoute()
-const sessionId = computed(() => String(route.query.session_id || ""))
+const route = useRoute();
+const sessionId = computed(() => String(route.query.session_id || ""));
 </script>

@@ -64,6 +64,9 @@
                     <li>
                         <NuxtLink to="/about" class="text-blue-600 hover:text-blue-700">API Docs & Limits</NuxtLink>
                     </li>
+                    <li>
+                        <NuxtLink to="/profile/tokens" class="text-blue-600 hover:text-blue-700">API Tokens</NuxtLink>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -86,6 +89,8 @@ type SessionUser = {
 }
 
 const { user } = useUserSession();
+
+console.log(user.value);
 
 const displayName = computed(() => {
     const u = (user.value || {}) as SessionUser;

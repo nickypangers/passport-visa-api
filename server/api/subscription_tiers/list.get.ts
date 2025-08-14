@@ -1,3 +1,5 @@
+import { createAppError } from "#shared/utils/errors";
+
 export default defineEventHandler(async (_) => {
     const isH3Error = (e: unknown): e is { statusCode: number } =>
         typeof e === "object" && e !== null && "statusCode" in e;
@@ -8,9 +10,9 @@ export default defineEventHandler(async (_) => {
         if (isH3Error(err)) {
             throw err;
         }
-        throw createError({
+        throw createAppError({
             statusCode: 500,
-            statusMessage: "Failed to fetch subscription tiers",
+            message: "Failed to fetch subscription tiers",
         });
     }
 });

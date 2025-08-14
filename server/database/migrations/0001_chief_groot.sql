@@ -1,1 +1,0 @@
-ALTER TABLE "subscription_tiers" ADD COLUMN "features" text[] DEFAULT '[]'::text[];

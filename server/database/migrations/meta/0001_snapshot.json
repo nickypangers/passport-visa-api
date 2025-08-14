@@ -1,6 +1,6 @@
 {
-  "id": "7f053aa2-c36c-476d-a93d-cff140213f5a",
-  "prevId": "1dac265d-7e76-4c03-bdd4-15bcb252742c",
+  "id": "a14a0387-f65d-44ad-b523-14477cc09117",
+  "prevId": "f029ff1b-d73b-47eb-98b8-d58e61391b2b",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -40,26 +40,75 @@
         },
         "expires_at": {
           "name": "expires_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "secret_enc": {
+          "name": "secret_enc",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_six": {
+          "name": "last_six",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "idx_api_keys_key_hash_user_id": {
+          "name": "idx_api_keys_key_hash_user_id",
+          "columns": [
+            {
+              "expression": "key_hash",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_api_keys_user_id": {
+          "name": "idx_api_keys_user_id",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {
         "api_keys_user_id_users_id_fk": {
           "name": "api_keys_user_id_users_id_fk",
@@ -76,6 +125,132 @@
         }
       },
       "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.api_usage_counters": {
+      "name": "api_usage_counters",
+      "schema": "",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "api_key_id": {
+          "name": "api_key_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "period_day": {
+          "name": "period_day",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "date_trunc('day', now())"
+        },
+        "endpoint": {
+          "name": "endpoint",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "count": {
+          "name": "count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "shard": {
+          "name": "shard",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "api_key_id_bucket": {
+          "name": "api_key_id_bucket",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "endpoint_bucket": {
+          "name": "endpoint_bucket",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        }
+      },
+      "indexes": {
+        "idx_api_usage_counters_user_day": {
+          "name": "idx_api_usage_counters_user_day",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "period_day",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "api_usage_counters_user_id_users_id_fk": {
+          "name": "api_usage_counters_user_id_users_id_fk",
+          "tableFrom": "api_usage_counters",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "api_usage_counters_api_key_id_api_keys_id_fk": {
+          "name": "api_usage_counters_api_key_id_api_keys_id_fk",
+          "tableFrom": "api_usage_counters",
+          "tableTo": "api_keys",
+          "columnsFrom": [
+            "api_key_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "api_usage_counters_user_id_api_key_id_period_day_endpoint_shard_pk": {
+          "name": "api_usage_counters_user_id_api_key_id_period_day_endpoint_shard_pk",
+          "columns": [
+            "user_id",
+            "api_key_id",
+            "period_day",
+            "endpoint",
+            "shard"
+          ]
+        }
+      },
       "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
@@ -205,6 +380,39 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.roles": {
+      "name": "roles",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "roles_name_unique": {
+          "name": "roles_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.subscription_tiers": {
       "name": "subscription_tiers",
       "schema": "",
@@ -221,41 +429,72 @@
           "primaryKey": false,
           "notNull": true
         },
-        "sku": {
-          "name": "sku",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
         "description": {
           "name": "description",
           "type": "text",
           "primaryKey": false,
           "notNull": true
         },
+        "monthly_sku": {
+          "name": "monthly_sku",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yearly_sku": {
+          "name": "yearly_sku",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "features": {
           "name": "features",
           "type": "text[]",
           "primaryKey": false,
           "notNull": false,
-          "default": "'[]'::text[]"
+          "default": "'{}'::text[]"
         },
-        "price": {
-          "name": "price",
+        "monthly_price": {
+          "name": "monthly_price",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
+        },
+        "yearly_price": {
+          "name": "yearly_price",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "monthly_stripe_price_id": {
+          "name": "monthly_stripe_price_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yearly_stripe_price_id": {
+          "name": "yearly_stripe_price_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "monthly_request_limit": {
+          "name": "monthly_request_limit",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 100
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
@@ -265,11 +504,18 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "subscription_tiers_sku_unique": {
-          "name": "subscription_tiers_sku_unique",
+        "subscription_tiers_monthly_sku_unique": {
+          "name": "subscription_tiers_monthly_sku_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "sku"
+            "monthly_sku"
+          ]
+        },
+        "subscription_tiers_yearly_sku_unique": {
+          "name": "subscription_tiers_yearly_sku_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "yearly_sku"
           ]
         }
       },
@@ -293,29 +539,97 @@
           "primaryKey": false,
           "notNull": true
         },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email_verified": {
+          "name": "email_verified",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
         "provider_id": {
           "name": "provider_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
+        "role_id": {
+          "name": "role_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "subscription_tier_id": {
+          "name": "subscription_tier_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         }
       },
-      "indexes": {},
-      "foreignKeys": {},
+      "indexes": {
+        "idx_users_subscription_tier_id": {
+          "name": "idx_users_subscription_tier_id",
+          "columns": [
+            {
+              "expression": "subscription_tier_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "users_role_id_roles_id_fk": {
+          "name": "users_role_id_roles_id_fk",
+          "tableFrom": "users",
+          "tableTo": "roles",
+          "columnsFrom": [
+            "role_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "users_subscription_tier_id_subscription_tiers_id_fk": {
+          "name": "users_subscription_tier_id_subscription_tiers_id_fk",
+          "tableFrom": "users",
+          "tableTo": "subscription_tiers",
+          "columnsFrom": [
+            "subscription_tier_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "users_email_unique": {
@@ -325,12 +639,11 @@
             "email"
           ]
         },
-        "unique_user_provider": {
-          "name": "unique_user_provider",
+        "uniq_email": {
+          "name": "uniq_email",
           "nullsNotDistinct": false,
           "columns": [
-            "email",
-            "provider_id"
+            "email"
           ]
         }
       },
@@ -528,14 +841,14 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"

@@ -29,19 +29,19 @@
 </template>
 
 <script setup lang="ts">
-defineComponent({ name: "OrderErrorPage" })
+defineComponent({ name: "OrderErrorPage" });
 
 useHead({
     title: "Order Error - Passport Visa API",
-})
+});
 
-const route = useRoute()
-const sessionId = computed(() => String(route.query.session_id || ""))
-const message = computed(() => String(route.query.message || ""))
+const route = useRoute();
+const sessionId = computed(() => String(route.query.session_id || ""));
+const message = computed(() => String(route.query.message || ""));
 
 const displayMessage = computed(() =>
     message.value
         ? message.value
         : "Your payment was canceled or failed. No charges were made. You can try again from the pricing page."
-)
+);
 </script>
