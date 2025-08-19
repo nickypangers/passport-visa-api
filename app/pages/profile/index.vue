@@ -79,60 +79,24 @@ defineComponent({ name: "ProfilePage" });
 
 definePageMeta({ middleware: ["auth"] });
 
-type SessionUser = {
-    name?: string
-    login?: string
-    email?: string
-    subscriptionTier?: string
-    apiCallsUsed?: number
-    apiCallsLimit?: number
-}
+// Using centralized SessionUser type from shared/types/session.d.ts
 
-const { user } = useUserSession();
+const {
+    displayName,
+    displayEmailOrLogin,
+    userInitials,
+    apiUsage,
+    subscriptionPlan
+} = useSessionUser();
 
-console.log(user.value);
-
-const displayName = computed(() => {
-    const u = (user.value || {}) as SessionUser;
-    return u.name || u.login || u.email || "User";
-});
-
-const displayEmailOrLogin = computed(() => {
-    const u = (user.value || {}) as SessionUser;
-    return u.email || (u.login ? `@${u.login}` : "");
-});
-
-const userInitials = computed(() => {
-    const name = displayName.value.trim();
-    const parts = name.split(" ").filter(Boolean);
-    const first = parts[0]?.[0] ?? "U";
-    const second = parts.length > 1 ? (parts[1]?.[0] ?? "") : (name.length > 1 ? name[1] : "");
-    return (first + (second || "")).toUpperCase();
-});
-
-const apiCallsUsed = computed(() => {
-    const u = (user.value || {}) as SessionUser;
-    return typeof u.apiCallsUsed === "number" ? u.apiCallsUsed : 0;
-});
-
-const apiCallsLimit = computed(() => {
-    const u = (user.value || {}) as SessionUser;
-    return typeof u.apiCallsLimit === "number" ? u.apiCallsLimit : 100;
-});
-
-const usagePercent = computed(() => {
-    const used = apiCallsUsed.value;
-    const limit = apiCallsLimit.value || 1;
-    return (used / limit) * 100;
-});
-
-const planLabel = computed(() => {
-    const u = (user.value || {}) as SessionUser;
-    return (u.subscriptionTier || "Free").toString();
-});
+const apiCallsUsed = computed(() => apiUsage.value.used);
+const apiCallsLimit = computed(() => apiUsage.value.limit);
+const usagePercent = computed(() => apiUsage.value.percent);
+const planLabel = subscriptionPlan;
 
 function goToUpgrade() {
     // Placeholder route for upgrade flow; replace with billing portal later
     navigateTo("/pricing");
 }
+
 </script>

@@ -4,7 +4,7 @@ import { decryptSecret } from "../../../utils/crypto";
 
 export default defineEventHandler(async (event) => {
     const session = await getUserSession(event);
-    type SessionUser = { id: number };
+    // Using centralized MinimalSessionUser type from shared/types/session.d.ts
     const sessionUser = session?.user as SessionUser | undefined;
     if (!sessionUser?.id) {
         throw createAppError({ statusCode: 401, message: "Unauthorized" });

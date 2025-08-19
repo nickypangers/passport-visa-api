@@ -4,7 +4,7 @@ import apiKeys from "./api_keys";
 import { sql } from "drizzle-orm";
 
 const apiUsageCounters = pgTable("api_usage_counters", {
-    userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+    userId: integer("user_id").notNull().references(() => users.id, { onDelete: "set null" }),
     apiKeyId: integer("api_key_id").references(() => apiKeys.id, { onDelete: "set null" }),
     periodDay: date("period_day").notNull().default(sql`date_trunc('day', now())`),
     endpoint: text("endpoint"),

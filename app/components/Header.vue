@@ -106,18 +106,10 @@ defineComponent({
     name: "HeaderComponent",
 });
 
-const { user, openInPopup } = useUserSession();
+const { openInPopup } = useUserSession();
+const { displayName } = useSessionUser();
 
-type SessionUser = {
-    name?: string
-    login?: string
-    email?: string
-}
-
-const userLabel = computed(() => {
-    const u = user.value as SessionUser | null;
-    return u?.name ?? u?.login ?? u?.email ?? "Account";
-});
+const userLabel = computed(() => displayName.value);
 
 const route = useRoute();
 

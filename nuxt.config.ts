@@ -13,7 +13,14 @@ export default defineNuxtConfig({
     storesDirs: ["./app/stores/**"],
   },
   typescript: {
-    tsConfig: {}
+    tsConfig: {
+      include: ['types/**/*.d.ts', 'shared/**/*.d.ts'],
+      compilerOptions: {
+        paths: {
+          "#shared/*": ["./shared/*"]
+        }
+      }
+    }
   },
   runtimeConfig: {
     db_host: process.env.POSTGRES_HOST,

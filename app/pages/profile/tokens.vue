@@ -29,6 +29,7 @@
                         <button type="button" class="ml-2 text-blue-600 hover:text-blue-700"
                             @click="copyToken">Copy</button>
                     </p>
+
                 </div>
             </form>
         </div>
@@ -89,6 +90,11 @@
                                     aria-label="Copy token" :title="'Copy token'" @click="handleCopyClick(t)">
                                     <!-- Clipboard icon -->
                                     <Icon name="mdi:content-copy" class="h-5 w-5 block" />
+                                </button>
+                                <button type="button"
+                                    class="inline-grid h-8 w-8 place-items-center rounded-md transition text-gray-500 hover:text-gray-700 hover:bg-gray-100 leading-none"
+                                    aria-label="Copy token" :title="'Copy token'" @click="handleDeleteClick(t)">
+                                    <Icon name="mdi:delete" class="h-5 w-5 block" />
                                 </button>
                             </div>
                         </td>
@@ -203,6 +209,29 @@ async function handleCopyClick(row: TokenRow) {
         }
     }
     copySpecificToken(row.plainToken as string);
+}
+
+async function handleDeleteClick(row: TokenRow) {
+    if (!confirm("Are you sure you want to delete this token?")) {
+        return;
+    }
+    await deleteToken(row);
+}
+
+
+async function deleteToken(row: TokenRow) {
+    try {
+        const result = await $fetch(`/api/tokens/${row.id}`, { method: "DELETE" });
+        console.log(result);
+        if (result.success) {
+            tokens.value = tokens.value.filter((t) => t.id !== row.id);
+        } else {
+            window.alert("Unable to delete token.");
+        }
+    } catch (error) {
+        console.error("Error deleting token:", error);
+        window.alert("Failed to delete token. Please try again.");
+    }
 }
 
 onMounted(fetchTokens);
